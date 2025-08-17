@@ -41,7 +41,3 @@ terraform.rc
 
 # ignore direnv files
 .envrc
-
-# gpg files
-*.gpg
-*.asc
