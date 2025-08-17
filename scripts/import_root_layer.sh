@@ -40,7 +40,7 @@ function import_iam_role() {
   if aws iam get-role --role-name "$OIDC_GHA_IAM_ROLE_NAME" > /dev/null 2>&1; then
     echo -e "\n\nIAM role '$OIDC_GHA_IAM_ROLE_NAME' exists. Importing...\n\n"
     terraform import 'aws_iam_role.oidc_gha_admin' "$OIDC_GHA_IAM_ROLE_NAME"
-    terraform import 'aws_iam_role_policy_attachment.oidc_gha_admin' "$OIDC_GHA_IAM_ROLE_NAME/arn:aws:iam::aws:policy/AdministratorAccess"
+    terraform import 'aws_iam_role_policy_attachments_exclusive.oidc_gha_admin' "$OIDC_GHA_IAM_ROLE_NAME"
   else
     echo -e "\n\nIAM role '$OIDC_GHA_IAM_ROLE_NAME' does not exist.  No import needed.\n\n"
   fi

@@ -55,3 +55,7 @@ Bootstrap a new AWS account.
     - https://stackoverflow.com/questions/61096521/how-to-use-gpg-key-in-github-actions
     - https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file
     - https://ss64.com/mac/shasum.html
+2. iam access to Billing and Cost Management
+    - https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/control-access-billing.html
+    - https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/managed-policies.html
+    - https://repost.aws/knowledge-center/iam-billing-access
