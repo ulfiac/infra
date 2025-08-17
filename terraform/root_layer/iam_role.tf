@@ -27,11 +27,10 @@ resource "aws_iam_role" "oidc_gha_admin" {
   name               = var.oidc_gha_iam_role_name
 }
 
-data "aws_iam_policy" "admin_access" {
-  name = "AdministratorAccess"
-}
-
-resource "aws_iam_role_policy_attachment" "oidc_gha_admin" {
-  role       = aws_iam_role.oidc_gha_admin.name
-  policy_arn = data.aws_iam_policy.admin_access.arn
+resource "aws_iam_role_policy_attachments_exclusive" "oidc_gha_admin" {
+  role_name = aws_iam_role.oidc_gha_admin.name
+  policy_arns = [
+    data.aws_iam_policy.admin_access.arn,
+    data.aws_iam_policy.billing.arn
+  ]
 }

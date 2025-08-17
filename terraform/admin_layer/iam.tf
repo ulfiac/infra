@@ -31,5 +31,5 @@ resource "aws_iam_user_login_profile" "admin_user" {
 resource "aws_iam_group_membership" "admin_access" {
   name  = "admin-access-group-membership-exclusive"
   group = aws_iam_group.admin_access.name
-  users = [aws_iam_user.admin_user]
+  users = [aws_iam_user.admin_user.name]
 }
