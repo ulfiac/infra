@@ -6,14 +6,11 @@ provider "aws" {
   }
 }
 
-provider "local" {}
-
-
 module "tags" {
   # tflint-ignore: terraform_module_pinned_source
   source  = "git::https://github.com/ulfiac/aws-tags.git"
   project = "aws-bootstrap"
   additional_tags = {
-    bootstrap_layer = "admin_layer"
+    bootstrap_layer = "root_layer"
   }
 }
