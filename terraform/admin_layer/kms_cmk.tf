@@ -22,8 +22,12 @@ data "aws_iam_policy_document" "cmk" {
     ]
     resources = ["*"]
     principals {
-      identifiers = [aws_iam_user.regular_user.arn]
-      type        = "AWS"
+      identifiers = [
+        aws_iam_user.regular_user.arn,
+        aws_iam_role.admin.arn,
+        aws_iam_role.power_user.arn,
+      ]
+      type = "AWS"
     }
   }
 
