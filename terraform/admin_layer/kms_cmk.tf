@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "cmk" {
     effect = "Allow"
     actions = [
       "kms:GenerateDataKey*",
-      "kms:DescribeKey"
+      "kms:DescribeKey",
     ]
     resources = ["*"]
     principals {
@@ -80,6 +80,22 @@ data "aws_iam_policy_document" "cmk" {
     #   variable = "kms:EncryptionContext:aws:cloudtrail:arn"
     #   values   = ["arn:aws:cloudtrail:*:account-id:trail/*"]
     # }
+  }
+
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
+  statement {
+    sid    = "Allow S3 to use the key for encryption"
+    effect = "Allow"
+    actions = [
+      "kms:Decrypt",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey",
+    ]
+    resources = ["*"]
+    principals {
+      identifiers = ["s3.amazonaws.com"]
+      type        = "Service"
+    }
   }
 
   statement {
