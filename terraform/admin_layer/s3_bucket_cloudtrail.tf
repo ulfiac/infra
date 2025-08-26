@@ -95,6 +95,7 @@ data "aws_iam_policy_document" "logging" {
   }
 
   # https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#require-sse-kms
   # https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html#example-bucket-policies-encryption
   statement {
     sid       = "DenyAbsentOrIncorrectEncryptionHeader"
