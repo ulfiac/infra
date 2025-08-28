@@ -1,3 +1,7 @@
+# https://docs.aws.amazon.com/awscloudtrail/latest/userguide/send-cloudtrail-events-to-cloudwatch-logs.html
+# https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudwatch-log-group-log-stream-naming-for-cloudtrail.html
+# https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-required-policy-for-cloudwatch-logs.html
+
 data "aws_iam_policy_document" "cloudtrail_to_cloudwatch_assume_role_policy" {
   statement {
     sid     = "AllowCloudTrailToAssumeRoleToCloudWatch"
@@ -17,13 +21,21 @@ resource "aws_iam_role" "cloudtrail_to_cloudwatch_role" {
 
 data "aws_iam_policy_document" "cloudtrail_to_cloudwatch_policy" {
   statement {
-    sid    = "AllowCloudTrailToWriteToCloudWatch"
+    sid    = "AWSCloudTrailCreateLogStream"
     effect = "Allow"
     actions = [
       "logs:CreateLogStream",
+    ]
+    resources = ["${aws_cloudwatch_log_group.cloudtrail.arn}:log-stream:${local.account_id}_CloudTrail_${local.region}*"]
+  }
+
+  statement {
+    sid    = "AWSCloudTrailPutLogEvents"
+    effect = "Allow"
+    actions = [
       "logs:PutLogEvents",
     ]
-    resources = ["${aws_cloudwatch_log_group.cloudtrail.arn}:*"]
+    resources = ["${aws_cloudwatch_log_group.cloudtrail.arn}:log-stream:${local.account_id}_CloudTrail_${local.region}*"]
   }
 }
 
