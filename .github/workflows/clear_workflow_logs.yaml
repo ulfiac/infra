@@ -22,7 +22,7 @@ jobs:
   clear-workflow-logs:
     runs-on: ubuntu-latest
     steps:
-      - uses: Mattraks/delete-workflow-runs@86d29a75093353c4c509a876c176234037c2025b # v2
+      - uses: Mattraks/delete-workflow-runs@86d29a75093353c4c509a876c176234037c2025b # v2, not current as of 2025-12-03
         with:
           token:             ${{ github.token }}
           repository:        ${{ github.repository }}

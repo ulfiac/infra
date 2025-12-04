@@ -79,7 +79,7 @@ jobs:
       run:
         working-directory: ./terraform/${{ inputs.terraform_layer }}
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
       - run: pwd
 
       - run: shasum --version
@@ -91,7 +91,7 @@ jobs:
           GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
         run: ../../scripts/add_gpg_public_key.sh
 
-      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2, current as of 2025-12-03
         with:
           terraform_wrapper: false
       - run: terraform --version
@@ -100,14 +100,14 @@ jobs:
 
       - name: configure aws credentials with oidc
         if: ${{ inputs.auth == 'oidc' }}
-        uses: aws-actions/configure-aws-credentials@00943011d9042930efac3dcd3a170e4273319bc8 # v5.1.0
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1, current as of 2025-12-03
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ vars.OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ inputs.aws_region }}
 
       - name: configure aws credentials with keys
         if: ${{ inputs.auth == 'keys' }}
-        uses: aws-actions/configure-aws-credentials@00943011d9042930efac3dcd3a170e4273319bc8 # v5.1.0
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1, current as of 2025-12-03
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
