@@ -2,6 +2,5 @@
 # root.hcl configuration.
 locals {
   aws_account_name = "mgmt"
-  aws_account_id   = get_env("AWS_ACCOUNT_ID")
-  environment_name = get_env("ENVIRONMENT_NAME")
+  aws_account_id   = get_env("TG_VAR_AWS_ACCOUNT_ID")
 }

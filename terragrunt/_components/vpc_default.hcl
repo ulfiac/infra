@@ -13,7 +13,8 @@ locals {
   # env = local.environment_vars.locals.environment
 
   # Expose the base source URL so different versions of the module can be deployed in different environments.
-  source_url     = "git::git@github.com:ulfiac/terraform-infrastructure-modules.git//modules/vpc_default"
+  # source_url     = "git::git@github.com:ulfiac/terraform-infrastructure-modules.git//modules/vpc_default"
+  source_url     = "git::https://github.com/ulfiac/terraform-infrastructure-modules.git//modules/vpc_default"
   source_version = "main"
 }
 

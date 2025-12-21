@@ -1,7 +1,7 @@
 name: reusable tf action
 run-name: tf action on ${{ inputs.terraform_layer }} - ${{ inputs.terraform_action }}
 
-on: 
+on:
   workflow_call:
     inputs:
       aws_region:
@@ -62,6 +62,7 @@ jobs:
     defaults:
       run:
         working-directory: ./terraform/${{ inputs.terraform_layer }}
+    environment: aws_mgmt
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
       - run: pwd
