@@ -23,7 +23,7 @@ on:
       region:
         default: us-east-2
         description: aws region
-        required: false
+        required: true
         type: choice
         options:
           - _global
@@ -57,6 +57,9 @@ jobs:
     defaults:
       run:
         working-directory: ./terragrunt/aws/${{ inputs.account }}/${{ inputs.region }}
+    environment: "aws_${{ inputs.account }}"
+    env:
+      TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
       - run: pwd
@@ -67,7 +70,7 @@ jobs:
       - name: add gpg public key
         env:
           GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
-        run: ../../scripts/add_gpg_public_key.sh
+        run: ${{ github.workspace }}/scripts/add_gpg_public_key.sh
 
       - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2, current as of 2025-12-03
         with:
@@ -100,7 +103,7 @@ jobs:
           CONTEXT_STEPS: ${{ toJson(steps) }}
           CONTEXT_STRATEGY: ${{ toJson(strategy) }}
           CONTEXT_VARS: ${{ toJson(vars) }}
-        run: ../../scripts/dump_context.sh
+        run: ${{ github.workspace }}/scripts/dump_context.sh
 
       - name: terragrunt plan
         if: ${{ inputs.terragrunt_action == 'plan' }}
