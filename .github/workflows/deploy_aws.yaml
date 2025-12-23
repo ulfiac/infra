@@ -20,6 +20,7 @@ permissions:
 
 jobs:
   aws:
+    name: aws | ${{ inputs.terragrunt_action }}
     uses: ./.github/workflows/reusable_deploy_aws_account.yaml
     with:
       account: all
