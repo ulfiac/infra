@@ -62,7 +62,7 @@ permissions:
 
 jobs:
   component:
-    name: component (${{ inputs.component }}/${{ inputs.terragrunt_action }})
+    name: ${{ inputs.account }} | ${{ inputs.region }} | ${{ inputs.component }} | ${{ inputs.terragrunt_action }}
     runs-on: ubuntu-latest
     defaults:
       run:
