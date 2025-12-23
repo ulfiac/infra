@@ -54,6 +54,7 @@ permissions:
 
 jobs:
   reusable-deploy-aws:
+    name: "${{ inputs.terragrunt_action }}: (${{ matrix.account }}, ${{ matrix.region }}, ${{ inputs.component }})"
     strategy:
       matrix:
         account: ${{ fromJson(inputs.account == 'all' && '["mgmt"]' || format('["{0}"]', inputs.account)) }}
