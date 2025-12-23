@@ -1,4 +1,4 @@
-name: reusable terragrunt action
+name: reusable tg action
 run-name: "${{ inputs.terragrunt_action }}: ${{ inputs.working_dir }}"
 
 on:
