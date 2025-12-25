@@ -70,6 +70,7 @@ jobs:
       TG_ALL: ${{ inputs.terragrunt_all == true && 'true' || 'false' }}
       TG_NON_INTERACTIVE: "true"
       TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      TG_VAR_UNIQUE_NAME: ${{ secrets.UNIQUE_NAME }}
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, released 2025-11, checked 2025-12
       - run: pwd
@@ -139,5 +140,5 @@ jobs:
         if: ${{ inputs.terragrunt_action == 'destroy' }}
         run: |
           set -o pipefail
-          terragrunt apply -destroy
+          terragrunt apply -destroy -auto-approve
           echo -e "\n::notice::Destroy details.\n"
