@@ -7,6 +7,10 @@ on:
       aws_region:
         required: true
         type: string
+      context_details:
+        default: false
+        required: false
+        type: boolean
       github_environment:
         required: true
         type: string
@@ -25,6 +29,10 @@ on:
         default: us-east-2
         required: true
         type: string
+      context_details:
+        default: false
+        required: false
+        type: boolean
       github_environment:
         default: aws_mgmt
         options:
@@ -104,6 +112,7 @@ jobs:
 
       - name: dump context
         env:
+          CONTEXT_DETAILS: ${{ inputs.context_details == true && 'true' || 'false' }}
           CONTEXT_ENV: ${{ toJson(env) }}
           CONTEXT_GITHUB: ${{ toJson(github) }}
           CONTEXT_INPUTS: ${{ toJson(inputs) }}
