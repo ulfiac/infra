@@ -55,4 +55,6 @@ echo "::group::vars context:"
 echo "$CONTEXT_VARS"
 echo "::endgroup::"
 
-echo -e "\n::notice::Context details.\n"
+if [ "$CONTEXT_DETAILS" = "true" ]; then
+  echo -e "\n::notice::Context details.\n"
+fi
