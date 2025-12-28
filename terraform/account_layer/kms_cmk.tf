@@ -11,27 +11,6 @@ data "aws_iam_policy_document" "cmk" {
   }
 
   statement {
-    sid    = "AllowKeyToBeUsed"
-    effect = "Allow"
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey*",
-      "kms:DescribeKey",
-    ]
-    resources = ["*"]
-    principals {
-      identifiers = [
-        aws_iam_user.regular_user.arn,
-        aws_iam_role.admin.arn,
-        aws_iam_role.power_user.arn,
-      ]
-      type = "AWS"
-    }
-  }
-
-  statement {
     sid    = "Allow CloudWatch Logs to use the key"
     effect = "Allow"
     actions = [

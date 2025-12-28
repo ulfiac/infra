@@ -1,6 +1,5 @@
 module "tags" {
-  # tflint-ignore: terraform_module_pinned_source
-  source  = "git::https://github.com/ulfiac/terraform-infrastructure-modules.git//modules/tags?ref=main"
+  source  = "../../terragrunt/_modules/tags"
   project = "aws-infrastructure"
   additional_tags = {
     layer = "account_layer"
