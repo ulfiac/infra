@@ -1,8 +1,8 @@
-name: purge workflow logs
+name: _purge
 
 on:
   schedule:
-    - cron: '0 0 * * *' # run daily at midnight UTC
+    - cron: '53 10 * * *' # run daily at midnight UTC
   workflow_dispatch:
 
 permissions:
