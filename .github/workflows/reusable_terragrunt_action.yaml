@@ -77,6 +77,7 @@ jobs:
     env:
       TG_ALL: ${{ inputs.terragrunt_all == true && 'true' || 'false' }}
       TG_NON_INTERACTIVE: "true"
+      TG_SUMMARY_PER_UNIT: "true"
       TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       TG_VAR_UNIQUE_NAME: ${{ secrets.UNIQUE_NAME }}
     steps:
