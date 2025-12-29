@@ -20,6 +20,10 @@ on:
       terragrunt_all:
         required: true
         type: boolean
+      terragrunt_parallelism:
+        default: true
+        required: false
+        type: boolean
       working_dir:
         required: true
         type: string
@@ -52,6 +56,10 @@ on:
         default: true
         required: true
         type: boolean
+      terragrunt_parallelism:
+        default: true
+        required: false
+        type: boolean
       working_dir:
         required: true
         type: string
@@ -77,6 +85,7 @@ jobs:
     env:
       TG_ALL: ${{ inputs.terragrunt_all == true && 'true' || 'false' }}
       TG_NON_INTERACTIVE: "true"
+      TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
       TG_SUMMARY_PER_UNIT: "true"
       TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       TG_VAR_UNIQUE_NAME: ${{ secrets.UNIQUE_NAME }}
