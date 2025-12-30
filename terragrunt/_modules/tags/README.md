@@ -27,17 +27,17 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| additional\_tags | n/a | `map(string)` | `{}` | no |
-| created\_by | n/a | `string` | `"terraform"` | no |
-| project | n/a | `string` | `""` | no |
+| additional\_tags | Additional tags to merge with standard tags | `map(string)` | `{}` | no |
+| created\_by | Name of the entity or user that created the resource | `string` | `"terraform"` | no |
+| project | Name of the project these resources belong to | `string` | `""` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| additional\_tags | n/a |
-| all\_the\_tags | n/a |
-| standard\_tags | n/a |
+| additional\_tags | The additional tags passed as input |
+| all\_the\_tags | All the tags merged into a single map |
+| standard\_tags | The standard tags pre-defined by the module |
 <!-- END_TF_DOCS -->
 
 ## Contributing
