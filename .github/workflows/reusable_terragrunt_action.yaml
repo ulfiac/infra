@@ -97,10 +97,10 @@ jobs:
       - run: shasum --version
       - run: gpg --version
 
-      - name: add gpg public key
-        env:
-          GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
-        run: ${{ github.workspace }}/scripts/add_gpg_public_key.sh
+      # - name: add gpg public key
+      #   env:
+      #     GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
+      #   run: ${{ github.workspace }}/scripts/add_gpg_public_key.sh
 
       - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2, released 2024-08, checked 2025-12
         with:

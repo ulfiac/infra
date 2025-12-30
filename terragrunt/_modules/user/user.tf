@@ -4,7 +4,7 @@ resource "aws_iam_user" "regular_user" {
 }
 
 data "local_file" "pgp_public_key" {
-  filename = "${path.module}/public_key_binary_base64encoded_new.gpg"
+  filename = "${path.module}/public_key_binary_base64encoded.gpg"
 }
 
 resource "aws_iam_user_login_profile" "regular_user" {
