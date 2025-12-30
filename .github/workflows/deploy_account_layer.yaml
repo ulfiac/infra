@@ -1,4 +1,4 @@
-name: deploy account layer
+name: __deploy account layer
 run-name: deploy account layer - ${{ github.event.inputs.terraform_action }}
 
 on:

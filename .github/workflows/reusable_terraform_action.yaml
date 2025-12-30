@@ -1,4 +1,4 @@
-name: reusable tf action
+name: __reusable tf action
 run-name: tf action on ${{ inputs.terraform_layer }} - ${{ inputs.terraform_action }}
 
 on:
