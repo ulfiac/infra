@@ -3,7 +3,7 @@ variable "aws_region" {
   type        = string
 }
 
-variable "unique_name" {
-  description = "String the can be added to names that must be unique (eg s3 buckets, etc)."
-  type        = string
-}
+# variable "unique_name" {
+#   description = "String the can be added to names that must be unique (eg s3 buckets, etc)."
+#   type        = string
+# }
