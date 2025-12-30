@@ -6,8 +6,8 @@ locals {
 
   cloudwatch_log_group_name = "/aws/cloudtrail/${local.cloudtrail_name}"
 
-  iam_policy_name_cloudtrail_to_cloudwatch = "cloudtrail-to-cloudwatch-new"
-  iam_role_name_cloudtrail_to_cloudwatch   = "cloudtrail-to-cloudwatch-new"
+  iam_policy_name_cloudtrail_to_cloudwatch = "cloudtrail-to-cloudwatch"
+  iam_role_name_cloudtrail_to_cloudwatch   = "cloudtrail-to-cloudwatch"
 
   s3_bucket_name = "logs-${local.aws_account_id}-${local.aws_region}"
 
