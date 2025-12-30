@@ -55,7 +55,10 @@ No resources.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| converse | Details and metadata returned from using the Amazon Bedrock `converse` API in the `use_foundation_model` sub-module. |
+| invoke\_model | Details and metadata returned from invoking a foundation model via the Amazon Bedrock `invoke_model` API in the `use_foundation_model` sub-module. |
 <!-- END_TF_DOCS -->
 
 ## Contributing

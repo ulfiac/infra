@@ -67,7 +67,11 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| bucket\_name | The name of the logs S3 bucket |
+| key\_prefixes | The S3 key prefixes for different log types |
+| log\_group\_name | The name of the CloudWatch log group for CloudTrail |
 <!-- END_TF_DOCS -->
 
 ## Contributing

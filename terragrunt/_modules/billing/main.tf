@@ -3,21 +3,19 @@ locals {
   aws_region                = data.aws_region.current.region
   billing_budget_name       = "monthly-budget"
   billing_budget_thresholds = [20, 40, 60, 80, 100]
-  sns_endpoint_email        = var.email
   sns_topic_name            = "monthly-budget"
 }
 
-#trivy:ignore:AVD-AWS-0136 (HIGH): Topic encryption does not use a customer managed key.
+#trivy:ignore:AVD-AWS-0095 (HIGH): Topic does not have encryption enabled.
 resource "aws_sns_topic" "monthly_budget" {
-  name              = local.sns_topic_name
-  policy            = data.aws_iam_policy_document.sns_topic_policy.json
-  kms_master_key_id = data.aws_kms_key.sns.key_id
+  name   = local.sns_topic_name
+  policy = data.aws_iam_policy_document.sns_topic_policy.json
 }
 
-resource "aws_sns_topic_subscription" "monthly_budget_via_email" {
+resource "aws_sns_topic_subscription" "monthly_budget" {
   topic_arn = aws_sns_topic.monthly_budget.arn
   protocol  = "email"
-  endpoint  = local.sns_endpoint_email
+  endpoint  = var.email_sns
 }
 
 resource "aws_budgets_budget" "monthly_budget" {
@@ -37,9 +35,4 @@ resource "aws_budgets_budget" "monthly_budget" {
       subscriber_sns_topic_arns = [aws_sns_topic.monthly_budget.arn]
     }
   }
-
-  depends_on = [
-    aws_sns_topic.monthly_budget,
-    aws_sns_topic_subscription.monthly_budget_via_email
-  ]
 }
