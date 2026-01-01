@@ -153,7 +153,7 @@ jobs:
         if: ${{ inputs.terragrunt_action == 'apply' }}
         run: |
           set -o pipefail
-          terragrunt apply
+          terragrunt apply -auto-approve
           echo -e "\n::notice::Apply details.\n"
 
       - name: terragrunt destroy
