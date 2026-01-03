@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   deploy-admin-layer:
-    uses: ./.github/workflows/reusable_deploy.yaml
+    uses: ./.github/workflows/__reusable_deploy.yaml
     with:
       aws_region: us-east-2
       terraform_action: ${{ github.event.inputs.terraform_action }}
