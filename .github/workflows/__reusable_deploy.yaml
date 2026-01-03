@@ -67,7 +67,7 @@ jobs:
           esac
 
   plan:
-    uses: ./.github/workflows/reusable_terraform_action.yaml
+    uses: ./.github/workflows/__reusable_terraform_action.yaml
     needs: set-plan-action
     with:
       aws_region: ${{ inputs.aws_region }}
@@ -86,7 +86,7 @@ jobs:
         run: echo 'Approval provided.  Job will continue.'
 
   apply:
-    uses: ./.github/workflows/reusable_terraform_action.yaml
+    uses: ./.github/workflows/__reusable_terraform_action.yaml
     if: ${{ inputs.terraform_action == 'apply' || inputs.terraform_action == 'destroy' }}
     needs: get-approval
     with:
