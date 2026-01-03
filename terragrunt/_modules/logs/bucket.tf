@@ -191,6 +191,12 @@ resource "aws_s3_bucket_policy" "logs" {
 resource "aws_s3_object" "key_prefixes" {
   for_each = local.s3_key_prefixes
 
-  bucket = aws_s3_bucket.logs.id
-  key    = each.value.prefix_with_slash # requires a trailing slash so it is treated as a folder
+  bucket                 = aws_s3_bucket.logs.id
+  key                    = each.value.prefix_with_slash # requires a trailing slash so it is treated as a folder
+  server_side_encryption = "AES256"
+
+  depends_on = [
+    aws_s3_bucket_policy.logs,
+    aws_s3_bucket_server_side_encryption_configuration.logs,
+  ]
 }
