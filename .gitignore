@@ -48,3 +48,7 @@ terraform.rc
 
 # ignore macOS system files because reasons
 .DS_Store
+
+# terragrunt generated directories
+.terragrunt-cache/
+.terragrunt-stack/
