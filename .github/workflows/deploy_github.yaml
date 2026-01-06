@@ -1,0 +1,55 @@
+name: deploy github
+run-name: "${{ inputs.terragrunt_action }}: github, ${{ inputs.type }}, ${{ inputs.name }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        default: all
+        options:
+          - all
+          - repo
+        required: true
+        type: choice
+      name:
+        default: all
+        required: true
+        type: string
+      terragrunt_action:
+        default: plan
+        options:
+          - plan
+          - plan destroy
+          - apply
+          - destroy
+        required: true
+        type: choice
+      context_details:
+        default: false
+        required: false
+        type: boolean
+      terragrunt_parallelism:
+        default: true
+        required: false
+        type: boolean
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy-github:
+    name: ${{ inputs.name == 'all' && format('github/{0}', matrix.type) || format('github/{0}/{1}', matrix.type, inputs.name) }}
+    strategy:
+      matrix:
+        type: ${{ fromJson(inputs.type == 'all' && '["repo"]' || format('["{0}"]', inputs.type)) }}
+    uses: ./.github/workflows/reusable_terragrunt_action.yaml
+    with:
+      aws_region: us-east-2
+      context_details: ${{ inputs.context_details }}
+      github_environment: github
+      terragrunt_action: ${{ inputs.terragrunt_action }}
+      terragrunt_all: ${{ inputs.name == 'all' && true || false }}
+      terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
+      working_dir: ${{ inputs.name == 'all' && format('github/{0}', matrix.type) || format('github/{0}/{1}', matrix.type, inputs.name) }}
+    secrets: inherit
