@@ -83,6 +83,7 @@ jobs:
         working-directory: ./terragrunt/${{ inputs.working_dir }}
     environment: ${{ inputs.github_environment }}
     env:
+      GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       TG_ALL: ${{ inputs.terragrunt_all == true && 'true' || 'false' }}
       TG_NON_INTERACTIVE: "true"
       TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
