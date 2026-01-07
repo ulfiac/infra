@@ -1,4 +1,4 @@
-# aws-infrastructure
+# infra
 
 Bootstrap a new AWS account.
 
