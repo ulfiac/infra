@@ -2,12 +2,8 @@
 
 locals {
   provider_vars = read_terragrunt_config(find_in_parent_folders("provider.hcl"))
-
-  # Automatically load account-level variables
-  account_vars = read_terragrunt_config(find_in_parent_folders("account.hcl"))
-
-  # Automatically load region-level variables
-  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+  account_vars  = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  region_vars   = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
   merged_vars = merge(
     local.provider_vars.locals,
@@ -16,13 +12,13 @@ locals {
   )
 
   # Extract the variables we need for easy access
-  providers      = local.merged_vars.providers
   aws_account_id = local.merged_vars.aws_account_id
   aws_region     = local.merged_vars.aws_region
+  providers      = local.merged_vars.providers
+  source_version = local.merged_vars.source_version
 
-  default_tags = {
-    created_by = "terragrunt/terraform"
-    repo       = "infrastructure"
+  additional_tags = {
+    repo = "infra"
   }
 }
 
@@ -32,16 +28,23 @@ generate "providers" {
   contents  = <<EOF
 
 %{if contains(local.providers, "aws")}
+module "tags" {
+  source          = "git::https://github.com/ulfiac/infra.git//terragrunt/_modules/tags?ref=${local.source_version}"
+  created_by      = "terragrunt/terraform"
+  project         = "infra"
+  additional_tags = {
+    %{for key, value in local.additional_tags}
+      ${key} = "${value}"
+    %{endfor}
+  }
+}
+
 provider "aws" {
   allowed_account_ids = ["${local.aws_account_id}"]
   region              = "${local.aws_region}"
 
   default_tags {
-    tags = {
-      %{for key, value in local.default_tags}
-        ${key} = "${value}"
-      %{endfor}
-    }
+    tags = module.tags.all_the_tags
   }
 }
 %{endif}
