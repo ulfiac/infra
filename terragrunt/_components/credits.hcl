@@ -1,5 +1,6 @@
 locals {
-  source_path = "${dirname(find_in_parent_folders("root.hcl"))}/_modules/credits"
+  source_url     = "git::https://github.com/ulfiac/infra.git//terragrunt/_modules/credits"
+  source_version = "main"
 }
 
 inputs = {
