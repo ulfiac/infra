@@ -1,5 +1,6 @@
 include "root" {
-  path = find_in_parent_folders("root.hcl")
+  path   = find_in_parent_folders("root.hcl")
+  expose = true
 }
 
 include "component" {
@@ -12,7 +13,7 @@ dependencies {
 }
 
 terraform {
-  source = "${include.component.locals.source_url}?ref=${include.component.locals.source_version}"
+  source = "${include.component.locals.source_url}?ref=${include.root.locals.merged_vars.source_version}"
 }
 
 inputs = {}
