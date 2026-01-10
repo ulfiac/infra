@@ -12,7 +12,7 @@ dependency "logs" {
   config_path = "../logs"
 
   mock_outputs = {
-    log_group_name = "/aws/cloudtrail/multi-region-trail-${include.root.locals.aws_account_id}-${include.root.locals.aws_region}"
+    log_group_name = "/aws/cloudtrail/multi-region-trail-${include.root.locals.merged_vars.aws_account_id}-${include.root.locals.merged_vars.aws_region}"
   }
 }
 
