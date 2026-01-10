@@ -11,15 +11,13 @@ locals {
     local.region_vars.locals,
   )
 
-  # Extract the variables we need for easy access
-  aws_account_id = local.merged_vars.aws_account_id
-  aws_region     = local.merged_vars.aws_region
-  providers      = local.merged_vars.providers
-  source_version = local.merged_vars.source_version
-
-  additional_tags = {
-    repo = "infra"
-  }
+  # in the merge into merged_vars above each aws_default_tags map will overwrite the previous map, so we need to merge the maps separately in their own merge function
+  # this ensures the maps are merged instead of overwritten
+  merged_aws_default_tags = merge(
+    local.provider_vars.locals.aws_default_tags,
+    local.account_vars.locals.aws_default_tags,
+    local.region_vars.locals.aws_default_tags,
+  )
 }
 
 generate "providers" {
@@ -27,29 +25,22 @@ generate "providers" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 
-%{if contains(local.providers, "aws")}
-module "tags" {
-  source          = "git::https://github.com/ulfiac/infra.git//terragrunt/_modules/tags?ref=${local.source_version}"
-  created_by      = "terragrunt/terraform"
-  project         = "infra"
-  additional_tags = {
-    %{for key, value in local.additional_tags}
-      ${key} = "${value}"
-    %{endfor}
-  }
-}
-
+%{if contains(local.merged_vars.providers, "aws")}
 provider "aws" {
-  allowed_account_ids = ["${local.aws_account_id}"]
-  region              = "${local.aws_region}"
+  allowed_account_ids = ["${local.merged_vars.aws_account_id}"]
+  region              = "${local.merged_vars.aws_region}"
 
   default_tags {
-    tags = module.tags.all_the_tags
+    tags = {
+    %{for key, value in local.merged_aws_default_tags}
+      ${key} = "${value}"
+    %{endfor}
+    }
   }
 }
 %{endif}
 
-%{if contains(local.providers, "github")}
+%{if contains(local.merged_vars.providers, "github")}
 provider "github" {}
 %{endif}
 
@@ -60,10 +51,10 @@ EOF
 remote_state {
   backend = "s3"
   config = {
-    bucket       = "terraform-state-${local.aws_account_id}-${local.aws_region}"
+    bucket       = "terraform-state-${local.merged_vars.aws_account_id}-${local.merged_vars.aws_region}"
     encrypt      = true
     key          = "${path_relative_to_include()}/tf.tfstate"
-    region       = local.aws_region
+    region       = local.merged_vars.aws_region
     use_lockfile = true
   }
   generate = {
