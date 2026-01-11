@@ -1,5 +1,5 @@
 locals {
-  source_url = "git::https://github.com/ulfiac/infra.git//terragrunt/_modules/credits"
+  source_url = "git::https://github.com/ulfiac/infra.git//terraform/modules/credits"
 }
 
 inputs = {
