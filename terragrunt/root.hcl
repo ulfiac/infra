@@ -13,19 +13,19 @@ locals {
 
   # in the merge into merged_vars above each aws_default_tags map will overwrite the previous map, so we need to merge the maps separately in their own merge function
   # this ensures the maps are merged instead of overwritten
+  # also, we use try() to avoid errors if any of the aws_default_tags maps are not defined
   merged_aws_default_tags = merge(
-    local.provider_vars.locals.aws_default_tags,
-    local.account_vars.locals.aws_default_tags,
-    local.region_vars.locals.aws_default_tags,
+    try(local.provider_vars.locals.aws_default_tags, {}),
+    try(local.account_vars.locals.aws_default_tags, {}),
+    try(local.region_vars.locals.aws_default_tags, {}),
   )
 }
 
-generate "providers" {
-  path      = "providers.tf"
+generate "provider_aws" {
+  path      = "provider_aws.tf"
+  disable   = !contains(local.merged_vars.providers, "aws")
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
-
-%{if contains(local.merged_vars.providers, "aws")}
 provider "aws" {
   allowed_account_ids = ["${local.merged_vars.aws_account_id}"]
   region              = "${local.merged_vars.aws_region}"
@@ -38,16 +38,18 @@ provider "aws" {
     }
   }
 }
-%{endif}
-
-%{if contains(local.merged_vars.providers, "github")}
-provider "github" {}
-%{endif}
-
 EOF
 }
 
-# Configure Terragrunt to automatically store tfstate files in an S3 bucket
+generate "provider_github" {
+  path      = "provider_github.tf"
+  disable   = !contains(local.merged_vars.providers, "github")
+  if_exists = "overwrite_terragrunt"
+  contents  = <<EOF
+provider "github" {}
+EOF
+}
+
 remote_state {
   backend = "s3"
   config = {
@@ -63,12 +65,4 @@ remote_state {
   }
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# GLOBAL PARAMETERS
-# These variables apply to all configurations in this subfolder. These are automatically merged into the child
-# `terragrunt.hcl` config via the include block.
-# ---------------------------------------------------------------------------------------------------------------------
-
-# Configure root level variables that all resources can inherit. This is especially helpful with multi-account configs
-# where terraform_remote_state data sources are placed directly into the modules.
 inputs = local.merged_vars
