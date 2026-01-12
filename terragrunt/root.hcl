@@ -7,13 +7,11 @@ locals {
 
   account_vars = local.is_aws ? read_terragrunt_config(find_in_parent_folders("account.hcl")) : {} # account.hcl is required in a parent folder for AWS
   region_vars  = local.is_aws ? read_terragrunt_config(find_in_parent_folders("region.hcl")) : {}  # region.hcl  is required in a parent folder for AWS
-  repo_vars    = local.is_github ? read_terragrunt_config(find_in_parent_folders("repo.hcl")) : {} # repo.hcl    is required in a parent folder for GitHub
 
   merged_vars = merge(
-    local.provider_vars.locals,         # required
-    try(local.account_vars.locals, {}), # optional
-    try(local.region_vars.locals, {}),  # optional
-    try(local.repo_vars.locals, {}),    # optional
+    local.provider_vars.locals,
+    local.account_vars.locals,
+    local.region_vars.locals,
   )
 
   # in the merge into merged_vars above each aws_default_tags map will overwrite the previous map, so we need to merge the maps separately in their own merge function
