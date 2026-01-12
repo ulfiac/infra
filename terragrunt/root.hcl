@@ -5,8 +5,8 @@ locals {
   is_aws        = contains(local.provider_vars.locals.providers, "aws")
   is_github     = contains(local.provider_vars.locals.providers, "github")
 
-  account_vars = local.is_aws ? read_terragrunt_config(find_in_parent_folders("account.hcl")) : {} # account.hcl is required in a parent folder for AWS
-  region_vars  = local.is_aws ? read_terragrunt_config(find_in_parent_folders("region.hcl")) : {}  # region.hcl  is required in a parent folder for AWS
+  account_vars = local.is_aws ? read_terragrunt_config(find_in_parent_folders("account.hcl")) : { locals = {} } # account.hcl is required in a parent folder for AWS
+  region_vars  = local.is_aws ? read_terragrunt_config(find_in_parent_folders("region.hcl")) : { locals = {} }  # region.hcl  is required in a parent folder for AWS
 
   merged_vars = merge(
     local.provider_vars.locals,
