@@ -11,6 +11,9 @@ locals {
     local.region_vars.locals,
   )
 
+  is_aws    = contains(local.merged_vars.providers, "aws")
+  is_github = contains(local.merged_vars.providers, "github")
+
   # in the merge into merged_vars above each aws_default_tags map will overwrite the previous map, so we need to merge the maps separately in their own merge function
   # this ensures the maps are merged instead of overwritten
   # also, we use try() to avoid errors if any of the aws_default_tags maps are not defined
@@ -23,7 +26,7 @@ locals {
 
 generate "provider_aws" {
   path      = "provider_aws.tf"
-  disable   = !contains(local.merged_vars.providers, "aws")
+  disable   = !local.is_aws # ! is required due to negative assertion (disable)
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 provider "aws" {
@@ -43,7 +46,7 @@ EOF
 
 generate "provider_github" {
   path      = "provider_github.tf"
-  disable   = !contains(local.merged_vars.providers, "github")
+  disable   = !local.is_github # ! is required due to negative assertion (disable)
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 provider "github" {}
