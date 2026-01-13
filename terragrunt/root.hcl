@@ -34,11 +34,7 @@ provider "aws" {
   region              = "${local.merged_vars.aws_region}"
 
   default_tags {
-    tags = {
-    %{for key, value in local.merged_aws_default_tags}
-      ${key} = "${value}"
-    %{endfor}
-    }
+    tags = ${jsonencode(local.merged_aws_default_tags)}
   }
 }
 EOF
