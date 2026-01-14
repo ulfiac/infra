@@ -17,7 +17,7 @@ dependency "logs" {
 }
 
 terraform {
-  source = "${include.component.locals.source_url}?ref=${include.root.locals.merged_vars.source_version}"
+  source = "${dirname(find_in_parent_folders("root.hcl"))}/../terraform/modules/alarms"
 }
 
 inputs = {

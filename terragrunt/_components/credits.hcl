@@ -1,6 +1,4 @@
-locals {
-  source_url = "git::https://github.com/ulfiac/infra.git//terraform/modules/credits"
-}
+locals {}
 
 inputs = {
   create_lambda        = false
