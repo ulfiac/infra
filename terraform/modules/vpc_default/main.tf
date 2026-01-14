@@ -10,7 +10,7 @@ resource "aws_default_subnet" "adopted" {
   force_destroy           = false
 
   tags = {
-    "Name" = "default-${each.value}"
+    "Name" = "${var.prefix}-${each.value}"
   }
 
   depends_on = [aws_default_vpc.adopted]
@@ -24,6 +24,6 @@ resource "aws_default_vpc" "adopted" {
   force_destroy        = false
 
   tags = {
-    "Name" = "default-${local.region}"
+    "Name" = "${var.prefix}-${local.region}"
   }
 }

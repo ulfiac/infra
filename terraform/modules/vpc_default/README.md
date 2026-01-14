@@ -1,6 +1,6 @@
 # vpc_default
 
-Terraform module to adopt vpc-related resources into the terraform state.
+Terraform module to adopt the various default vpc resources into a terraform state.  This includes the default vpc, the default subnets, and others.
 
 ## Usage Instructions
 
