@@ -1,4 +1,6 @@
-locals {}
+terraform {
+  source = "${dirname(find_in_parent_folders("root.hcl"))}/../terraform/modules/credits"
+}
 
 inputs = {
   create_lambda        = false
