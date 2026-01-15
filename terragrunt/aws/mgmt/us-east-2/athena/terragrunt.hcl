@@ -4,8 +4,7 @@ include "root" {
 }
 
 include "component" {
-  path   = "${dirname(find_in_parent_folders("root.hcl"))}/_components/athena.hcl"
-  expose = true
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_components/athena.hcl"
 }
 
 dependency "logs" {
@@ -18,10 +17,6 @@ dependency "logs" {
       cloudtrail = "cloudtrail"
     }
   }
-}
-
-terraform {
-  source = "${dirname(find_in_parent_folders("root.hcl"))}/../terraform/modules/athena"
 }
 
 inputs = {

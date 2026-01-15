@@ -1,15 +1,7 @@
 include "root" {
-  path   = find_in_parent_folders("root.hcl")
-  expose = true
+  path = find_in_parent_folders("root.hcl")
 }
 
 include "component" {
-  path   = "${dirname(find_in_parent_folders("root.hcl"))}/_components/account_password_policy.hcl"
-  expose = true
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_components/account_password_policy.hcl"
 }
-
-terraform {
-  source = "${dirname(find_in_parent_folders("root.hcl"))}/../terraform/modules/account_password_policy"
-}
-
-inputs = {}

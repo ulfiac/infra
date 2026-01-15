@@ -3,5 +3,5 @@ include "root" {
 }
 
 include "component" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/_components/billing.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_components/logs.hcl"
 }
