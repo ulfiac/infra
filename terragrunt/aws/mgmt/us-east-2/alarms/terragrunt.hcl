@@ -4,8 +4,7 @@ include "root" {
 }
 
 include "component" {
-  path   = "${dirname(find_in_parent_folders("root.hcl"))}/_components/alarms.hcl"
-  expose = true
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_components/alarms.hcl"
 }
 
 dependency "logs" {
@@ -14,10 +13,6 @@ dependency "logs" {
   mock_outputs = {
     log_group_name = "/aws/cloudtrail/multi-region-trail-${include.root.locals.merged_vars.aws_account_id}-${include.root.locals.merged_vars.aws_region}"
   }
-}
-
-terraform {
-  source = "${dirname(find_in_parent_folders("root.hcl"))}/../terraform/modules/alarms"
 }
 
 inputs = {
