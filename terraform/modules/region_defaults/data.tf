@@ -1,3 +1,11 @@
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+data "aws_kms_key" "ebs" {
+  key_id = "alias/aws/ebs"
+}
+
 data "aws_region" "current" {}
 
 data "aws_subnet" "default" {
@@ -14,8 +22,4 @@ data "aws_subnets" "default" {
 
 data "aws_vpc" "default" {
   default = true
-}
-
-data "aws_availability_zones" "available" {
-  state = "available"
 }
