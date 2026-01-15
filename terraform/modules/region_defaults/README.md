@@ -1,6 +1,10 @@
-# vpc_default
+# region_defaults
 
-Terraform module to adopt the various default vpc resources into a terraform state.  This includes the default vpc, the default subnets, and others.
+Terraform module to set various region defaults.  This includes:
+
+1 - adopting the default vpc
+2 - adopting the default subnets
+3 - setting the default ebs encryption
 
 ## Usage Instructions
 
@@ -28,7 +32,10 @@ No modules.
 |------|------|
 | [aws_default_subnet.adopted](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_subnet) | resource |
 | [aws_default_vpc.adopted](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_vpc) | resource |
+| [aws_ebs_default_kms_key.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_default_kms_key) | resource |
+| [aws_ebs_encryption_by_default.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_encryption_by_default) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
+| [aws_kms_key.ebs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_key) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [aws_subnet.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 | [aws_subnets.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
@@ -36,7 +43,10 @@ No modules.
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| enable\_default\_ebs\_encryption | the EBS encryption by default setting for the region | `bool` | `true` | no |
+| prefix | Prefix for naming resources | `string` | `"default"` | no |
 
 ## Outputs
 

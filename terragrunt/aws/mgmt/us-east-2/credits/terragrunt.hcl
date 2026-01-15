@@ -7,5 +7,5 @@ include "component" {
 }
 
 dependencies {
-  paths = ["../vpc_default"]
+  paths = ["../region_defaults"]
 }
