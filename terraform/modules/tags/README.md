@@ -29,7 +29,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | additional\_tags | Additional tags to merge with standard tags | `map(string)` | `{}` | no |
 | created\_by | Name of the entity or user that created the resource | `string` | `"terraform"` | no |
-| project | Name of the project these resources belong to | `string` | `""` | no |
+| repo | Name of the repository that created the resource | `string` | `""` | no |
 
 ## Outputs
 

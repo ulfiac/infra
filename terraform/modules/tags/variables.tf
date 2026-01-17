@@ -10,8 +10,8 @@ variable "created_by" {
   default     = "terraform"
 }
 
-variable "project" {
-  description = "Name of the project these resources belong to"
+variable "repo" {
+  description = "Name of the repository that created the resource"
   type        = string
   default     = ""
 }
