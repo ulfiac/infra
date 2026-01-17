@@ -76,8 +76,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| encrypted\_password | n/a |
-| pgp\_public\_key\_content\_sha256\_checksum | n/a |
+| encrypted\_password | encrypted password of the regular user |
+| pgp\_public\_key\_content\_sha256\_checksum | SHA256 checksum of the PGP public key content |
 <!-- END_TF_DOCS -->
 
 ## Contributing

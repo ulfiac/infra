@@ -45,8 +45,9 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| enable\_default\_ebs\_encryption | the EBS encryption by default setting for the region | `bool` | `true` | no |
+| enable\_default\_ebs\_encryption | Enable default EBS encryption for the region | `bool` | `true` | no |
 | prefix | Prefix for naming resources | `string` | `"default"` | no |
+| verbose\_output | Enable verbose output for debugging purposes | `bool` | `false` | no |
 
 ## Outputs
 

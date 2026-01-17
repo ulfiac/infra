@@ -21,9 +21,6 @@ https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans-act
 | Name | Version |
 |------|---------|
 | terraform | >= 1.14.1 |
-| archive | >= 2.7.1 |
-| aws | >= 6.24.0 |
-| random | >= 3.7.2 |
 
 ## Providers
 
@@ -57,8 +54,8 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| converse | Details and metadata returned from using the Amazon Bedrock `converse` API in the `use_foundation_model` sub-module. |
-| invoke\_model | Details and metadata returned from invoking a foundation model via the Amazon Bedrock `invoke_model` API in the `use_foundation_model` sub-module. |
+| converse | result received from calling foundation module using converse method |
+| invoke\_model | result received from calling foundation module using invoke\_model method |
 <!-- END_TF_DOCS -->
 
 ## Contributing
