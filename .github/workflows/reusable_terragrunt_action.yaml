@@ -129,14 +129,18 @@ jobs:
       - name: terragrunt plan
         if: ${{ inputs.terragrunt_action == 'plan' }}
         run: |
-          terragrunt plan
+          terragrunt plan -out=tfplan.binary
           echo -e "\n::notice::Plan details.\n"
 
       - name: terragrunt plan destroy
         if: ${{ inputs.terragrunt_action == 'plan destroy' }}
         run: |
-          terragrunt plan -destroy
+          terragrunt plan -destroy -out=tfplan.binary
           echo -e "\n::notice::Plan destroy details.\n"
+
+      - name: show plan summary
+        if : ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
+        run: ${{ github.workspace }}/scripts/show_tg_plan_summary.sh
 
       - name: terragrunt apply
         if: ${{ inputs.terragrunt_action == 'apply' }}
