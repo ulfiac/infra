@@ -65,9 +65,9 @@ format_single_unit() {
 # example input line #2 (resource summary):
 #   00:00:00.000 STDOUT [logs] terraform:   # data.aws_iam_policy_document.cloudtrail_to_cloudwatch_policy will be read during apply
 #
-# example desired formatted line #1 (plan summary)::
+# example desired formatted line #1 (plan summary):
 #   [logs]    Plan: 2 to add, 0 to change, 1 to destroy.
-# example desired formatted line #2 (resource summary)::
+# example desired formatted line #2 (resource summary):
 #   [logs]    data.aws_iam_policy_document.cloudtrail_to_cloudwatch_policy will be read during apply
 #
 # awk
@@ -83,30 +83,33 @@ format_multiple_units() {
 }
 
 # add formatting for diff syntax highlighting in markdown
-# sed 's/^/  /'                        : indent every line with two spaces
-# sed '/will be created/s/^  /+ /'     : for lines containing 'will be created', replace the two spaces at the start with '+ '
-# sed '/will be destroyed/s/^  /- /'   : for lines containing 'will be destroyed', replace the two spaces at the start with '- '
+# sed 's/^/  /'                          : add 2 spaces to each line (so the spacing is consistent)
+# sed '/created/s/^  /+ /'               : for lines containing 'created', replace the two spaces at the start with '+ '
+# sed '/destroyed/s/^  /- /'             : for lines containing 'destroyed', replace the two spaces at the start with '- '
+# sed '/[1-9][0-9]* to destroy/s/^  /- /'  : for lines containing 'X to destroy' where X is a non-zero number, replace the two spaces at the start with '- '
+#
 # this makes it easier to read additions and deletions in the GitHub markdown diff code block
 # + will be marked green
 # - will be marked red
 format_for_diff() {
-  sed 's/^/  /' | sed '/will be created/s/^  /+ /' | sed '/will be destroyed/s/^  /- /'
+  sed 's/^/  /' | sed '/created/s/^  /+ /' | sed '/destroyed/s/^  /- /' | sed '/[1-9][0-9]* to destroy/s/^  /- /'
 }
 
-# get plan summary
+# get the plan summary
 # get_plan_summary_content   : call function to get content for the plan summary
 # if TG_ALL is set to true, terragrunt is running on multiple units and script will call the appropriate formatter
 # if TG_ALL is set to false, terragrunt is running on a single unit and script will call the appropriate formatter
+# and format the output for diff syntax highlighting in markdown
 get_plan_summary() {
   get_plan_summary_content | \
     if [ "$TG_ALL" = "true" ]; then
-      format_multiple_units
+      format_multiple_units | format_for_diff
     else
-      format_single_unit
+      format_single_unit | format_for_diff
     fi
 }
 
-# get resource summary
+# get the resource summary
 # get_resource_summary_content   : call function to get content for the resource summary
 # if TG_ALL is set to true, terragrunt is running on multiple units and script will call the appropriate formatter
 # if TG_ALL is set to false, terragrunt is running on a single unit and script will call the appropriate formatter
@@ -118,12 +121,6 @@ get_resource_summary() {
     else
       format_single_unit | format_for_diff
     fi
-}
-
-# add markdown code block
-# sed '1s/^/```diff\n/;$s/$/\n```/'    : add ``` at the start and ``` at the end
-add_markdown_code_block_no_language() {
-  sed '1s/^/```\n/; $s/$/\n```/'
 }
 
 # add markdown diff code block
@@ -151,7 +148,7 @@ echo -e "\n::group::raw text"
 echo "$raw_text_color"
 echo -e "::endgroup::"
 
-echo "$raw_text_no_color" | get_plan_summary | add_markdown_code_block_no_language >> "$GITHUB_STEP_SUMMARY"
+echo "$raw_text_no_color" | get_plan_summary | add_markdown_code_block_diff >> "$GITHUB_STEP_SUMMARY"
 echo "$raw_text_no_color" | get_resource_summary | add_markdown_code_block_diff >> "$GITHUB_STEP_SUMMARY"
 
 # annotate
