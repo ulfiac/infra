@@ -139,7 +139,7 @@ jobs:
           echo -e "\n::notice::Plan destroy details.\n"
 
       - name: show plan summary
-        if : ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
+        if: ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
         run: ${{ github.workspace }}/scripts/show_tg_plan_summary.sh
 
       - name: terragrunt apply
