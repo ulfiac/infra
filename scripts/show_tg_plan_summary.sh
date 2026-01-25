@@ -343,4 +343,6 @@ echo "$rendered_output_for_github_actions_log"
 echo "$rendered_output_for_github_step_summary" >> "$GITHUB_STEP_SUMMARY"
 
 # annotate
-echo -e "\n::notice::Plan summary.\n"
+if [ "$ANNOTATE_PLAN_SUMMARY" = "true" ]; then
+  echo -e "\n::notice::Plan summary.\n"
+fi

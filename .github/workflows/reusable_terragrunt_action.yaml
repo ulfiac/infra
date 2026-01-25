@@ -4,13 +4,25 @@ run-name: "${{ inputs.terragrunt_action }}: ${{ inputs.working_dir }}"
 on:
   workflow_call:
     inputs:
-      aws_region:
-        required: true
-        type: string
-      context_details:
+      annotate_apply_details:
         default: false
         required: false
         type: boolean
+      annotate_context_details:
+        default: false
+        required: false
+        type: boolean
+      annotate_plan_details:
+        default: false
+        required: false
+        type: boolean
+      annotate_plan_summary:
+        default: true
+        required: false
+        type: boolean
+      aws_region:
+        required: true
+        type: string
       github_environment:
         required: true
         type: string
@@ -29,14 +41,26 @@ on:
         type: string
   workflow_dispatch:
     inputs:
+      annotate_apply_details:
+        default: false
+        required: false
+        type: boolean
+      annotate_context_details:
+        default: false
+        required: false
+        type: boolean
+      annotate_plan_details:
+        default: false
+        required: false
+        type: boolean
+      annotate_plan_summary:
+        default: true
+        required: false
+        type: boolean
       aws_region:
         default: us-east-2
         required: true
         type: string
-      context_details:
-        default: false
-        required: false
-        type: boolean
       github_environment:
         default: aws_mgmt
         options:
@@ -124,22 +148,24 @@ jobs:
       - name: dump context
         uses: ulfiac/common-reusables/.github/actions/dump_context@main
         with:
-          annotate: ${{ inputs.context_details }}
+          annotate: ${{ inputs.annotate_context_details }}
 
       - name: terragrunt plan
         if: ${{ inputs.terragrunt_action == 'plan' }}
         run: |
           terragrunt plan -out=tfplan.binary
-          echo -e "\n::notice::Plan details.\n"
+          if [ "${{ inputs.annotate_plan_details }}" = "true" ]; then echo -e "\n::notice::Plan details.\n"; fi
 
       - name: terragrunt plan destroy
         if: ${{ inputs.terragrunt_action == 'plan destroy' }}
         run: |
           terragrunt plan -destroy -out=tfplan.binary
-          echo -e "\n::notice::Plan destroy details.\n"
+          if [ "${{ inputs.annotate_plan_details }}" = "true" ]; then echo -e "\n::notice::Plan destroy details.\n"; fi
 
       - name: show plan summary
         if: ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
+        env:
+          ANNOTATE_PLAN_SUMMARY: ${{ inputs.annotate_plan_summary }}
         run: ${{ github.workspace }}/scripts/show_tg_plan_summary.sh
 
       - name: terragrunt apply
@@ -147,11 +173,11 @@ jobs:
         run: |
           set -o pipefail
           terragrunt apply -auto-approve
-          echo -e "\n::notice::Apply details.\n"
+          if [ "${{ inputs.annotate_apply_details }}" = "true" ]; then echo -e "\n::notice::Apply details.\n"; fi
 
       - name: terragrunt destroy
         if: ${{ inputs.terragrunt_action == 'destroy' }}
         run: |
           set -o pipefail
           terragrunt apply -destroy -auto-approve
-          echo -e "\n::notice::Destroy details.\n"
+          if [ "${{ inputs.annotate_apply_details }}" = "true" ]; then echo -e "\n::notice::Destroy details.\n"; fi
