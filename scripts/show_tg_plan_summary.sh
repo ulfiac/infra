@@ -8,6 +8,7 @@ TFPLAN_BINARY='tfplan.binary'
 #
 # functions
 #
+
 get_unit_summary_content() {
   grep 'STDOUT' |grep -E '(No changes|Plan:)' || true
 }
@@ -72,22 +73,72 @@ echo_as_diff() {
 }
 
 remove_reset() {
-  sed 's/\x1b\[0m//g'
+  sed 's/\x1b\[0m//g'  # replace reset code with nothing, all matches
 }
 
 replace_bold_with_reset() {
-  sed 's/\x1b\[1m/\x1b\[0m/g'
+  sed 's/\x1b\[1m/\x1b[0m/g'  # replace bold code with reset code, all matches
 }
 
 move_delimiter() {
-  sed 's/|\x1b\[0m/\x1b\[0m|/g'
+  sed 's/|\x1b\[0m/\x1b[0m|/g'  # move delimiter after reset code, all matches
 }
 
 add_reset_after_pattern() {
   local pattern=$1
-  sed "s/\($pattern\)/\1\x1b\[0m\x1b\[0m/g"
+  sed "s/\($pattern\)/\1\x1b[0m\x1b[0m/g"  # add 2 reset codes after pattern, all matches
 }
 
+# This function processes terragrunt plan output lines to extract and format plan summaries.
+# It handles both single-unit and multi-unit terragrunt runs based on the TG_ALL environment variable.
+#
+# Environment Variables:
+#   TG_ALL - if "true", formats for multiple units; if "false", formats for a single unit
+#
+# Input Format (single unit):
+#   00:00:00.000 STDOUT terraform: Plan: 2 to add, 0 to change, 1 to destroy.
+#
+# Input Format (multiple units):
+#   00:00:00.000 STDOUT [logs] terraform: Plan: 2 to add, 0 to change, 1 to destroy.
+#
+# Output Format (both modes):
+#   [unit-name]    Plan: 2 to add, 0 to change, 1 to destroy.
+#
+# Processing Logic:
+#   Multiple units mode (TG_ALL=true):
+#     - Extract unit name from field 3 (already in [brackets])
+#     - Remove fields 1-4: timestamp, "STDOUT", unit name, "terraform:"
+#     - Format: unit | remaining text
+#
+#   Single unit mode (TG_ALL=false):
+#     - Derive unit name from current directory: $(basename "$(pwd)")
+#     - Remove fields 1-3: timestamp, "STDOUT", "terraform:"
+#     - Format: [unit] | remaining text
+#
+# awk command breakdown (multiple units):
+#   '{unit=$3;                  : get the unit name from the third field (including brackets)
+#   $1=$2=$3=$4="";             : remove first four fields (timestamp, "STDOUT", unit name, and "terraform:")
+#   sub(/^[ \t]+/, "")          : trim leading whitespace left over from removed fields
+#                                 - /^[ \t]+/ matches one or more spaces/tabs at the start
+#                                 - "" replaces them with nothing
+#   print unit "|" $0           : output unit name, pipe separator, and cleaned remaining text
+#
+# awk command breakdown (single unit):
+#   -v unit="[$unit]"           : set awk variable 'unit' to the current unit name in square brackets
+#   $1=$2=$3="";                : remove first three fields (timestamp, "STDOUT", and "terraform:")
+#   sub(/^[ \t]+/, "")          : trim leading whitespace left over from removed fields
+#   print unit "|" $0           : output unit name, pipe separator, and cleaned remaining text
+#
+# Post-processing:
+#   - remove_reset                 : remove any reset ANSI color codes
+#                                    - terragrunt plan output includes reset codes that interfere with column alignment
+#   - replace_bold_with_reset      : replace any bold ANSI color codes with reset codes
+#                                    - after removing all the reset codes, there's a bold in exactly the right place where a reset should be
+#   - move_delimiter               : move the '|' delimiter after the reset code
+#                                    - the delimiter added by the awk needs to be after the reset code for proper alignment
+#   - column -t -s "|"             : align columns using '|' as separator
+#   - sort_on_text_not_color_codes : sort lines while preserving ANSI color codes
+#   - || true                      : prevent errors if no matches found
 format_units() {
   if [ "$TG_ALL" = "true" ]; then
     # multiple units
@@ -95,7 +146,7 @@ format_units() {
     remove_reset | \
     replace_bold_with_reset | \
     move_delimiter | \
-    column -t -s "|" | \
+    column -t -s "|" |  # align columns, delimiter is '|'
     sort_on_text_not_color_codes || true
   else
     # single unit
@@ -104,39 +155,50 @@ format_units() {
     remove_reset | \
     replace_bold_with_reset | \
     move_delimiter | \
-    column -t -s "|" | \
+    column -t -s "|" |  # align columns, delimiter is '|'
     sort_on_text_not_color_codes || true
   fi
 }
 
+# This function processes terragrunt plan output lines to extract and format resource change summaries.
+#
+# awk command breakdown:
+#   unit=$1;                          : get the unit name from the third field (including brackets)
+#   resource=$3;                      : get the resource name from the seventh field
+#   $1=$2=$3="";                      : remove first seven fields (timestamp, "STDOUT", unit name, "terraform:", "#", and resource)
+#   sub(/^[ \t]+/, "")                : trim leading whitespace left over from removed fields
+#                                       - /^[ \t]+/ matches one or more spaces/tabs at the start
+#                                       - "" replaces them with nothing
+#   print unit "|" resource "|" $0}'  : output unit name with color reset, pipe separator, resource name, another pipe, and cleaned remaining text
+#
 format_resources() {
   awk '{unit=$1; resource=$3; $1=$2=$3=""; sub(/^[ \t]+/, ""); print unit "|" resource "|" $0}' | \
-  column -t -s "|" | \
+  column -t -s "|" |  # align columns, delimiter is '|'
   sort_on_text_not_color_codes || true
 }
 
 colorize() {
   local pattern=$1
   local color=$2
-  sed "s/$pattern/\x1b[${color}m$pattern\x1b[0m/g"
+  sed "s/$pattern/\x1b[${color}m$pattern\x1b[0m/g"  # add color code around pattern, all matches
 }
 
 colorize_and_bold() {
   local pattern=$1
   local color=$2
-  sed "s/$pattern/\x1b[1m\x1b[${color}m$pattern\x1b[0m\x1b[0m/g"
+  sed "s/$pattern/\x1b[1m\x1b[${color}m$pattern\x1b[0m\x1b[0m/g"  # add bold and color code around pattern, all matches
 }
 
 colorize_with_regex() {
   local regex=$1
   local color=$2
-  sed -E "s/($regex)/\x1b[${color}m\1\x1b[0m/g"
+  sed -E "s/($regex)/\x1b[${color}m\1\x1b[0m/g"  # add color code around regex, all matches
 }
 
 colorize_and_bold_with_regex() {
   local regex=$1
   local color=$2
-  sed -E "s/($regex)/\x1b[1m\x1b[${color}m\1\x1b[0m\x1b[0m/g"
+  sed -E "s/($regex)/\x1b[1m\x1b[${color}m\1\x1b[0m\x1b[0m/g"  # add bold and color code around regex, all matches
 }
 
 colorize_unit_summary() {
@@ -252,7 +314,6 @@ render_output_for_github_actions_log() {
 }
 
 render_output_for_github_step_summary() {
-  echo -e "Plan summary per unit:"
   echo_as_diff "$unit_summary_without_color"
   echo_collapsible_section_as_diff "Resource summary:" "$resource_summary_without_color"
 }
