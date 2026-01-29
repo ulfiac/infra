@@ -18,6 +18,13 @@ get_resource_summary_content() {
   grep 'STDOUT' | grep '#' | grep -v -E "(unchanged|depends on a resource or a module with changes pending)" || true
 }
 
+# extract unit name from a line like "[unit-name]    Plan: 2 to add, 0 to change, 1 to destroy."
+# awk command breakdown:
+#   -F'[][]'             : set field separator to either '[' or ']', so that the unit name is in field 2
+#   '{print "[" $2 "]"}' : print the unit name wrapped in brackets
+#
+# note1: the brackets are included in the output to match the format used elsewhere
+# note2: field 1 is the color codes set by terragrunt
 get_unit_name() {
   awk -F'[][]' '{print "[" $2 "]"}'
 }
