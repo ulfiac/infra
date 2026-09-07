@@ -88,7 +88,7 @@ jobs:
     name: "${{ inputs.terragrunt_action }}  ${{ inputs.working_dir }}"
     runs-on: ubuntu-24.04
     container:
-      image: ghcr.io/ulfiac/terragrunt-runner:1.1.3@sha256:6b3292c4834bb86fcc2bdae088c6b48f906ff01c4e7ec71d76f6cd2dd28b2a5c
+      image: ghcr.io/ulfiac/terragrunt-runner:1.1.4@sha256:ebd4de448f5458b62cb41242b78df07f063f2102722dd2374f88af9443606c91
     defaults:
       run:
         shell: bash
