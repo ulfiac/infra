@@ -5,7 +5,7 @@
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.9 |
+| terraform | 1.16.0 |
 | github | 6.13.0 |
 
 ## Providers
