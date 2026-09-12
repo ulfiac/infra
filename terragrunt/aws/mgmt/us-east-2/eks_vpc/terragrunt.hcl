@@ -16,7 +16,9 @@ dependency "log_bucket" {
 }
 
 inputs = {
-  log_bucket_arn = dependency.log_bucket.outputs.log_bucket_arn
-  public_subnets = include.root.locals.merged_vars.eks_public_subnets
-  vpc_cidr_block = include.root.locals.merged_vars.eks_vpc_cidr_block
+  isolated_subnets = include.root.locals.merged_vars.eks_isolated_subnets
+  log_bucket_arn   = dependency.log_bucket.outputs.log_bucket_arn
+  private_subnets  = include.root.locals.merged_vars.eks_private_subnets
+  public_subnets   = include.root.locals.merged_vars.eks_public_subnets
+  vpc_cidr_block   = include.root.locals.merged_vars.eks_vpc_cidr_block
 }
