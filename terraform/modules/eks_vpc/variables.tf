@@ -10,6 +10,92 @@ variable "namespace" {
 
 }
 
+variable "isolated_subnets" {
+  description = "Map of availability zones to isolated subnet CIDR blocks."
+  type        = map(string)
+
+  validation {
+    condition     = length(var.isolated_subnets) >= 2
+    error_message = "isolated_subnets must contain subnets in at least two availability zones."
+  }
+
+  validation {
+    condition = alltrue([
+      for cidr in values(var.isolated_subnets) : try(
+        tonumber(split("/", cidr)[1]) > tonumber(split("/", var.vpc_cidr_block)[1]) &&
+        tonumber(split("/", cidr)[1]) >= 16 &&
+        tonumber(split("/", cidr)[1]) <= 27 &&
+        cidrhost(var.vpc_cidr_block, 0) == cidrhost("${cidrhost(cidr, 0)}/${split("/", var.vpc_cidr_block)[1]}", 0),
+        false
+      )
+    ])
+    error_message = "Each isolated subnet must be a valid /16 through /27 CIDR contained within vpc_cidr_block."
+  }
+
+  # pairwise-compares network address ranges (as 32-bit integers) so overlaps are caught
+  # even between subnets with different prefix lengths or duplicate CIDRs on distinct AZ keys
+  validation {
+    condition = try(alltrue([
+      for pair in setproduct(
+        [for idx, cidr in values(var.isolated_subnets) : {
+          idx   = idx
+          start = sum([for i, o in split(".", cidrhost(cidr, 0)) : tonumber(o) * pow(256, 3 - i)])
+          end   = sum([for i, o in split(".", cidrhost(cidr, 0)) : tonumber(o) * pow(256, 3 - i)]) + pow(2, 32 - tonumber(split("/", cidr)[1])) - 1
+        }],
+        [for idx, cidr in values(var.isolated_subnets) : {
+          idx   = idx
+          start = sum([for i, o in split(".", cidrhost(cidr, 0)) : tonumber(o) * pow(256, 3 - i)])
+          end   = sum([for i, o in split(".", cidrhost(cidr, 0)) : tonumber(o) * pow(256, 3 - i)]) + pow(2, 32 - tonumber(split("/", cidr)[1])) - 1
+        }]
+      ) : pair[0].idx == pair[1].idx || pair[0].start > pair[1].end || pair[1].start > pair[0].end
+    ]), false)
+    error_message = "isolated_subnets CIDR blocks must not overlap with one another."
+  }
+}
+
+variable "private_subnets" {
+  description = "Map of availability zones to private subnet CIDR blocks."
+  type        = map(string)
+
+  validation {
+    condition     = length(var.private_subnets) >= 2
+    error_message = "private_subnets must contain subnets in at least two availability zones."
+  }
+
+  validation {
+    condition = alltrue([
+      for cidr in values(var.private_subnets) : try(
+        tonumber(split("/", cidr)[1]) > tonumber(split("/", var.vpc_cidr_block)[1]) &&
+        tonumber(split("/", cidr)[1]) >= 16 &&
+        tonumber(split("/", cidr)[1]) <= 27 &&
+        cidrhost(var.vpc_cidr_block, 0) == cidrhost("${cidrhost(cidr, 0)}/${split("/", var.vpc_cidr_block)[1]}", 0),
+        false
+      )
+    ])
+    error_message = "Each private subnet must be a valid /16 through /27 CIDR contained within vpc_cidr_block."
+  }
+
+  # pairwise-compares network address ranges (as 32-bit integers) so overlaps are caught
+  # even between subnets with different prefix lengths or duplicate CIDRs on distinct AZ keys
+  validation {
+    condition = try(alltrue([
+      for pair in setproduct(
+        [for idx, cidr in values(var.private_subnets) : {
+          idx   = idx
+          start = sum([for i, o in split(".", cidrhost(cidr, 0)) : tonumber(o) * pow(256, 3 - i)])
+          end   = sum([for i, o in split(".", cidrhost(cidr, 0)) : tonumber(o) * pow(256, 3 - i)]) + pow(2, 32 - tonumber(split("/", cidr)[1])) - 1
+        }],
+        [for idx, cidr in values(var.private_subnets) : {
+          idx   = idx
+          start = sum([for i, o in split(".", cidrhost(cidr, 0)) : tonumber(o) * pow(256, 3 - i)])
+          end   = sum([for i, o in split(".", cidrhost(cidr, 0)) : tonumber(o) * pow(256, 3 - i)]) + pow(2, 32 - tonumber(split("/", cidr)[1])) - 1
+        }]
+      ) : pair[0].idx == pair[1].idx || pair[0].start > pair[1].end || pair[1].start > pair[0].end
+    ]), false)
+    error_message = "private_subnets CIDR blocks must not overlap with one another."
+  }
+}
+
 variable "public_subnets" {
   description = "Map of availability zones to public subnet CIDR blocks."
   type        = map(string)
