@@ -7,7 +7,7 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.vpc.id
 
   tags = {
-    Name                     = "${local.public_subnet_name}-${each.key}"
+    Name                     = "${local.public_subnet_name_prefix}-${each.key}"
     "kubernetes.io/role/elb" = "1"
   }
 }
