@@ -3,7 +3,7 @@ run-name: "destroy: aws, all, all, eks_vpc"
 
 on:
   schedule:
-    - cron: "13 5 * * *" # every day at 0513 UTC (12:13am EST, 1:13am EDT)
+    - cron: "41 3 * * *" # every day at 0341 UTC (10:41pm EST, 11:41pm EDT)
   workflow_dispatch:
 
 concurrency:
