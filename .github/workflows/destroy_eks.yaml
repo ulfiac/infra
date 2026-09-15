@@ -1,0 +1,26 @@
+name: destroy eks
+run-name: "destroy: aws, all, all, eks_vpc"
+
+on:
+  schedule:
+    - cron: "13 5 * * *" # every day at 0513 UTC (12:13am EST, 1:13am EDT)
+  workflow_dispatch:
+
+concurrency:
+  group: destroy-eks
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  destroy_eks:
+    name: destroy eks
+    uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
+    with:
+      aws_account: all
+      aws_region: all
+      component: eks_vpc
+      terragrunt_action: destroy
+    secrets: inherit
