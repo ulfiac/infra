@@ -42,6 +42,14 @@
       "groupName": "container packages",
       "matchPackageNames": [
         "ghcr.io/ulfiac/terragrunt-runner"
+      ],
+      "matchUpdateTypes": [
+        "digest",
+        "major",
+        "minor",
+        "patch",
+        "pin",
+        "pinDigest"
       ]
     }
   ],
