@@ -7,14 +7,14 @@ Terraform module to set the account password policy.
 
 | Name | Version |
 |------|---------|
-| terraform | 1.16.4 |
-| aws | 6.66.0 |
+| terraform | 1.16.5 |
+| aws | 6.67.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.66.0 |
+| aws | 6.67.0 |
 
 ## Modules
 
@@ -24,7 +24,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_iam_account_password_policy.password_policy](https://registry.terraform.io/providers/hashicorp/aws/6.66.0/docs/resources/iam_account_password_policy) | resource |
+| [aws_iam_account_password_policy.password_policy](https://registry.terraform.io/providers/hashicorp/aws/6.67.0/docs/resources/iam_account_password_policy) | resource |
 
 ## Inputs
 
