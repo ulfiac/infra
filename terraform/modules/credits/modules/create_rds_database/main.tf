@@ -1,9 +1,11 @@
 locals {
-  availability_zones = sort([for subnet in data.aws_subnet.default : subnet.availability_zone])
+  default_vpc_availability_zones = sort(distinct([for subnet in data.aws_subnet.default : subnet.availability_zone]))
+  availability_zones             = slice(local.default_vpc_availability_zones, 0, min(3, length(local.default_vpc_availability_zones)))
+  subnet_ids                     = sort([for az in local.availability_zones : sort([for subnet in data.aws_subnet.default : subnet.id if subnet.availability_zone == az])[0]])
 }
 
 resource "aws_db_subnet_group" "aurora_serverless_v2" {
-  subnet_ids = data.aws_subnets.default.ids
+  subnet_ids = local.subnet_ids
 }
 
 #trivy:ignore:AVD-AWS-0077 (MEDIUM): Cluster instance has very low backup retention period
