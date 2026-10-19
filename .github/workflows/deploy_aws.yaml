@@ -1,5 +1,5 @@
 name: deploy aws
-run-name: "${{ inputs.terragrunt_action }}: aws, ${{ inputs.aws_account }}, ${{ inputs.aws_region }}, ${{ inputs.component }}"
+run-name: "${{ inputs.terragrunt_action }}: aws, ${{ inputs.aws_account }}, ${{ inputs.aws_region }}, ${{ inputs.filter }}"
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ on:
           - us-east-2
         required: true
         type: choice
-      component:
+      filter:
         default: all
         required: true
         type: string
@@ -85,8 +85,8 @@ jobs:
     with:
       aws_account: ${{ inputs.aws_account }}
       aws_region: ${{ inputs.aws_region }}
-      component: ${{ inputs.component }}
       dump_github_context: ${{ inputs.dump_github_context }}
+      filter: ${{ inputs.filter }}
       terragrunt_action: ${{ needs.set-plan-action.outputs.plan_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
@@ -110,8 +110,8 @@ jobs:
     with:
       aws_account: ${{ inputs.aws_account }}
       aws_region: ${{ inputs.aws_region }}
-      component: ${{ inputs.component }}
       dump_github_context: ${{ inputs.dump_github_context }}
+      filter: ${{ inputs.filter }}
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}

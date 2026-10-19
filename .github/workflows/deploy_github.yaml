@@ -68,8 +68,8 @@ jobs:
       dump_github_context: ${{ inputs.dump_github_context }}
       github_environment: github
       terragrunt_action: ${{ needs.set-plan-action.outputs.plan_action }}
+      terragrunt_filter: ${{ inputs.github_repo == 'all' && './**' || format('./{0}', inputs.github_repo) }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
-      terragrunt_queue_include_dir: ${{ inputs.github_repo == 'all' && './**' || format('./{0}', inputs.github_repo) }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
       working_dir: './github/repo'
     secrets: inherit
@@ -93,8 +93,8 @@ jobs:
       dump_github_context: ${{ inputs.dump_github_context }}
       github_environment: github
       terragrunt_action: ${{ inputs.terragrunt_action }}
+      terragrunt_filter: ${{ inputs.github_repo == 'all' && './**' || format('./{0}', inputs.github_repo) }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
-      terragrunt_queue_include_dir: ${{ inputs.github_repo == 'all' && './**' || format('./{0}', inputs.github_repo) }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
       working_dir: './github/repo'
     secrets: inherit

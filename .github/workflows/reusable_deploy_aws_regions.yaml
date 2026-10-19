@@ -1,5 +1,5 @@
 name: reusable deploy aws regions
-run-name: "${{ inputs.terragrunt_action }}: aws, ${{ inputs.aws_account }}, ${{ inputs.aws_region }}, ${{ inputs.component }}"
+run-name: "${{ inputs.terragrunt_action }}: aws, ${{ inputs.aws_account }}, ${{ inputs.aws_region }}, ${{ inputs.filter }}"
 
 on:
   workflow_call:
@@ -10,13 +10,13 @@ on:
       aws_region:
         required: true
         type: string
-      component:
-        required: true
-        type: string
       dump_github_context:
         default: false
         required: false
         type: boolean
+      filter:
+        required: true
+        type: string
       terragrunt_action:
         required: true
         type: string
@@ -46,14 +46,14 @@ on:
           - us-east-2
         required: true
         type: choice
-      component:
-        default: all
-        required: true
-        type: string
       dump_github_context:
         default: false
         required: false
         type: boolean
+      filter:
+        default: all
+        required: true
+        type: string
       terragrunt_action:
         default: plan
         options:
@@ -110,8 +110,8 @@ jobs:
       dump_github_context: ${{ inputs.dump_github_context }}
       github_environment: aws_${{ inputs.aws_account }}
       terragrunt_action: ${{ inputs.terragrunt_action }}
+      terragrunt_filter: ${{ inputs.filter == 'all' && './**' || inputs.filter }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
-      terragrunt_queue_include_dir: ${{ inputs.component == 'all' && './**' || format('./{0}', inputs.component) }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
       working_dir: "./aws/${{ inputs.aws_account }}/${{ matrix.aws_region }}"
     secrets: inherit
