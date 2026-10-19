@@ -17,14 +17,14 @@ on:
       terragrunt_action:
         required: true
         type: string
+      terragrunt_filter:
+        default: "./**"
+        required: false
+        type: string
       terragrunt_parallelism:
         default: true
         required: false
         type: boolean
-      terragrunt_queue_include_dir:
-        default: "./**"
-        required: false
-        type: string
       terragrunt_strict_mode:
         default: true
         required: false
@@ -57,14 +57,14 @@ on:
           - destroy
         required: true
         type: choice
+      terragrunt_filter:
+        default: "./**"
+        required: false
+        type: string
       terragrunt_parallelism:
         default: true
         required: false
         type: boolean
-      terragrunt_queue_include_dir:
-        default: "./**"
-        required: false
-        type: string
       terragrunt_strict_mode:
         default: true
         required: false
@@ -96,9 +96,9 @@ jobs:
     environment: ${{ inputs.github_environment }}
     env:
       TG_ALL: "true"
+      TG_FILTER: ${{ inputs.terragrunt_filter }}
       TG_NON_INTERACTIVE: "true"
       TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
-      TG_QUEUE_INCLUDE_DIR: ${{ inputs.terragrunt_queue_include_dir }}
       TG_STRICT_MODE: ${{ inputs.terragrunt_strict_mode }}
       TG_SUMMARY_PER_UNIT: "true"
       TG_VAR_AWS_ACCOUNT_EMAIL: ${{ secrets.AWS_ACCOUNT_EMAIL }}
@@ -144,15 +144,27 @@ jobs:
         run: |
           "$GITHUB_WORKSPACE/scripts/dump_all_contexts.sh"
 
+      - name: terragrunt find
+        run: |
+          terragrunt find
+
+      - name: terragrunt list
+        run: |
+          terragrunt list --tree .
+
+      - name: terragrunt validate
+        run: |
+          terragrunt validate
+
       - name: terragrunt plan
         if: ${{ inputs.terragrunt_action == 'plan' }}
         run: |
-          terragrunt plan -out=tfplan.binary
+          terragrunt run -- plan -out=tfplan.binary
 
       - name: terragrunt plan destroy
         if: ${{ inputs.terragrunt_action == 'plan destroy' }}
         run: |
-          terragrunt plan -destroy -out=tfplan.binary
+          terragrunt run -- plan -destroy -out=tfplan.binary
 
       - name: show plan summary
         if: ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
@@ -163,13 +175,13 @@ jobs:
         if: ${{ inputs.terragrunt_action == 'apply' }}
         run: |
           set -o pipefail
-          terragrunt apply -auto-approve 2>&1 | tee tfapply.out
+          terragrunt run -- apply -auto-approve 2>&1 | tee tfapply.out
 
       - name: terragrunt destroy
         if: ${{ inputs.terragrunt_action == 'destroy' }}
         run: |
           set -o pipefail
-          terragrunt apply -destroy -auto-approve 2>&1 | tee tfdestroy.out
+          terragrunt run -- apply -destroy -auto-approve 2>&1 | tee tfdestroy.out
 
       - name: show apply summary
         if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
