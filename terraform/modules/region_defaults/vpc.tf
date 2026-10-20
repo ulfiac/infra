@@ -46,3 +46,30 @@ resource "aws_default_security_group" "adopted" {
     "Name" = "default-${local.aws_region}"
   }
 }
+
+resource "aws_default_network_acl" "adopted" {
+  default_network_acl_id = aws_default_vpc.adopted.default_network_acl_id
+  subnet_ids             = [for subnet in aws_default_subnet.adopted : subnet.id]
+
+  ingress {
+    protocol   = "-1"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  egress {
+    protocol   = "-1"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
+  }
+
+  tags = {
+    "Name" = "default-${local.aws_region}"
+  }
+}
