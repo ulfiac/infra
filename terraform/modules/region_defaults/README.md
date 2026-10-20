@@ -30,6 +30,7 @@ No modules.
 |------|------|
 | [aws_athena_database.logs](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/athena_database) | resource |
 | [aws_athena_workgroup.logs](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/athena_workgroup) | resource |
+| [aws_default_network_acl.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_network_acl) | resource |
 | [aws_default_security_group.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_security_group) | resource |
 | [aws_default_subnet.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_subnet) | resource |
 | [aws_default_vpc.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_vpc) | resource |
