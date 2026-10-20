@@ -31,6 +31,7 @@ No modules.
 | [aws_athena_database.logs](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/athena_database) | resource |
 | [aws_athena_workgroup.logs](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/athena_workgroup) | resource |
 | [aws_default_network_acl.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_network_acl) | resource |
+| [aws_default_route_table.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_route_table) | resource |
 | [aws_default_security_group.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_security_group) | resource |
 | [aws_default_subnet.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_subnet) | resource |
 | [aws_default_vpc.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_vpc) | resource |
@@ -40,6 +41,7 @@ No modules.
 | [aws_glue_catalog_table.vpc_flow_logs](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/glue_catalog_table) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/availability_zones) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/caller_identity) | data source |
+| [aws_internet_gateway.default](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/internet_gateway) | data source |
 | [aws_kms_key.ebs](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/kms_key) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/region) | data source |
 | [aws_subnet.default](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/subnet) | data source |
