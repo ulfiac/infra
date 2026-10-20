@@ -1,9 +1,23 @@
-resource "aws_default_route_table" "adopted" {
-  default_route_table_id = aws_default_vpc.adopted.default_route_table_id
+resource "aws_default_network_acl" "adopted" {
+  default_network_acl_id = aws_default_vpc.adopted.default_network_acl_id
+  subnet_ids             = [for subnet in aws_default_subnet.adopted : subnet.id]
 
-  route {
+  ingress {
+    protocol   = "-1"
+    rule_no    = 100
+    action     = "allow"
     cidr_block = "0.0.0.0/0"
-    gateway_id = data.aws_internet_gateway.default.id
+    from_port  = 0
+    to_port    = 0
+  }
+
+  egress {
+    protocol   = "-1"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 0
   }
 
   tags = {
@@ -11,24 +25,13 @@ resource "aws_default_route_table" "adopted" {
   }
 }
 
-resource "aws_default_subnet" "adopted" {
-  for_each                = toset(local.availability_zones)
-  availability_zone       = each.value
-  map_public_ip_on_launch = false
-  force_destroy           = false
+resource "aws_default_route_table" "adopted" {
+  default_route_table_id = aws_default_vpc.adopted.default_route_table_id
 
-  tags = {
-    "Name" = "default-${each.value}"
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = data.aws_internet_gateway.default.id
   }
-
-  depends_on = [aws_default_vpc.adopted]
-}
-
-#trivy:ignore:AVD-AWS-0101 (HIGH): Default VPC is used.
-resource "aws_default_vpc" "adopted" {
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-  force_destroy        = false
 
   tags = {
     "Name" = "default-${local.aws_region}"
@@ -60,27 +63,24 @@ resource "aws_default_security_group" "adopted" {
   }
 }
 
-resource "aws_default_network_acl" "adopted" {
-  default_network_acl_id = aws_default_vpc.adopted.default_network_acl_id
-  subnet_ids             = [for subnet in aws_default_subnet.adopted : subnet.id]
+resource "aws_default_subnet" "adopted" {
+  for_each                = toset(local.availability_zones)
+  availability_zone       = each.value
+  map_public_ip_on_launch = false
+  force_destroy           = false
 
-  ingress {
-    protocol   = "-1"
-    rule_no    = 100
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
+  tags = {
+    "Name" = "default-${each.value}"
   }
 
-  egress {
-    protocol   = "-1"
-    rule_no    = 100
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
-  }
+  depends_on = [aws_default_vpc.adopted]
+}
+
+#trivy:ignore:AVD-AWS-0101 (HIGH): Default VPC is used.
+resource "aws_default_vpc" "adopted" {
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+  force_destroy        = false
 
   tags = {
     "Name" = "default-${local.aws_region}"
