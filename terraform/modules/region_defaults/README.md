@@ -35,6 +35,7 @@ No modules.
 | [aws_default_security_group.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_security_group) | resource |
 | [aws_default_subnet.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_subnet) | resource |
 | [aws_default_vpc.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_vpc) | resource |
+| [aws_default_vpc_dhcp_options.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/default_vpc_dhcp_options) | resource |
 | [aws_ebs_default_kms_key.default](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/ebs_default_kms_key) | resource |
 | [aws_ebs_encryption_by_default.default](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/ebs_encryption_by_default) | resource |
 | [aws_flow_log.default_vpc](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/flow_log) | resource |
