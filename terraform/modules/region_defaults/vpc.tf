@@ -21,3 +21,28 @@ resource "aws_default_vpc" "adopted" {
     "Name" = "default-${local.aws_region}"
   }
 }
+
+#trivy:ignore:AVD-AWS-0104 (CRITICAL): Security group rule allows unrestricted egress to any IP address.
+resource "aws_default_security_group" "adopted" {
+  vpc_id = aws_default_vpc.adopted.id
+
+  ingress {
+    description = "default ingress"
+    protocol    = "-1"
+    self        = true
+    from_port   = 0
+    to_port     = 0
+  }
+
+  egress {
+    description = "default egress"
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+  }
+
+  tags = {
+    "Name" = "default-${local.aws_region}"
+  }
+}
