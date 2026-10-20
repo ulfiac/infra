@@ -1,3 +1,16 @@
+resource "aws_default_route_table" "adopted" {
+  default_route_table_id = aws_default_vpc.adopted.default_route_table_id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = data.aws_internet_gateway.default.id
+  }
+
+  tags = {
+    "Name" = "default-${local.aws_region}"
+  }
+}
+
 resource "aws_default_subnet" "adopted" {
   for_each                = toset(local.availability_zones)
   availability_zone       = each.value
