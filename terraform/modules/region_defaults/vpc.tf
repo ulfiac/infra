@@ -86,3 +86,9 @@ resource "aws_default_vpc" "adopted" {
     "Name" = "default-${local.aws_region}"
   }
 }
+
+resource "aws_default_vpc_dhcp_options" "adopted" {
+  tags = {
+    "Name" = "default-${local.aws_region}"
+  }
+}
