@@ -101,6 +101,7 @@ jobs:
       TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
       TG_STRICT_MODE: ${{ inputs.terragrunt_strict_mode }}
       TG_SUMMARY_PER_UNIT: "true"
+      TG_VAR_AWS_ACCOUNT_CELL_NUMBER: ${{ secrets.AWS_ACCOUNT_CELL_NUMBER }}
       TG_VAR_AWS_ACCOUNT_EMAIL: ${{ secrets.AWS_ACCOUNT_EMAIL }}
       TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
     steps:

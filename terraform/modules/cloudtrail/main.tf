@@ -9,12 +9,12 @@ locals {
 
   cloudwatch_log_group_name                                   = "/aws/cloudtrail/${local.cloudtrail_name}"
   cloudwatch_log_metric_filter_name_console_login_without_mfa = "console-login-without-mfa"
-  cloudwatch_log_metric_filter_name_root_user                 = "root-user-activity"
+  cloudwatch_log_metric_filter_name_root_user_activity        = "root-user-activity"
   cloudwatch_metric_alarm_name_console_login_without_mfa      = "console-login-without-mfa"
-  cloudwatch_metric_alarm_name_root_user                      = "root-user-activity"
+  cloudwatch_metric_alarm_name_root_user_activity             = "root-user-activity"
 
   iam_policy_name_cloudtrail_to_cloudwatch = "cloudtrail-to-cloudwatch"
   iam_role_name_cloudtrail_to_cloudwatch   = "cloudtrail-to-cloudwatch"
 
-  sns_topic_name = "cloudwatch-alarms"
+  sns_topic_name = "cloudwatch-alarms-from-cloudtrail"
 }
