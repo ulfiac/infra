@@ -3,8 +3,14 @@ variable "athena_database_name" {
   type        = string
 }
 
+variable "aws_account_cell_number" {
+  description = "The cell number for Cloudwatch alarm notifications via SNS"
+  type        = string
+  sensitive   = true
+}
+
 variable "aws_account_email" {
-  description = "The email address for SNS alarm notifications."
+  description = "The email address for Cloudwatch alarm notifications via SNS."
   type        = string
   sensitive   = true
 }

@@ -23,6 +23,6 @@ resource "aws_cloudwatch_metric_alarm" "console_login_without_mfa" {
   statistic           = "Sum"
   threshold           = 1
 
-  alarm_actions = [aws_sns_topic.alarms.arn]
-  ok_actions    = [aws_sns_topic.alarms.arn]
+  alarm_actions = [aws_sns_topic.cloudwatch_alarms_from_cloudtrail.arn]
+  ok_actions    = [aws_sns_topic.cloudwatch_alarms_from_cloudtrail.arn]
 }
