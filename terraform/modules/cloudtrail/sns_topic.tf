@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     condition {
       test     = "ArnLike"
       variable = "aws:SourceArn"
-      values   = [aws_cloudwatch_log_group.cloudtrail.arn]
+      values   = ["arn:aws:cloudwatch:${local.aws_region}:${local.aws_account_id}:alarm:*"]
     }
   }
 }
