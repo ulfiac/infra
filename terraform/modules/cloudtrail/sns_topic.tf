@@ -41,9 +41,3 @@ resource "aws_sns_topic_subscription" "email" {
   protocol  = "email"
   endpoint  = var.aws_account_email
 }
-
-resource "aws_sns_topic_subscription" "sms" {
-  topic_arn = aws_sns_topic.cloudwatch_alarms_from_cloudtrail.arn
-  protocol  = "sms"
-  endpoint  = var.aws_account_cell_number
-}
