@@ -1,5 +1,9 @@
 # cloudtrail
 
+## Notes
+
+- The AWS Console Mobile App subscribes a device to the ```cloudwatch-alarms-from-cloudtrail``` notification configuration outside of Terraform (see the `mobile_user` module).  If the notification configuration is ever destroyed and recreated, re-subscribe in the app.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
