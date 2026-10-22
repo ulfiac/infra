@@ -34,6 +34,8 @@ Bootstrap a new AWS account.
     2. login as the IAM user (with the decrypted password) to the AWS Management Console
     3. change the IAM user password (forced)
     4. configure MFA on the IAM user
+    5. set up the mobile user for AWS Console Mobile App push notifications
+        - see the first-time setup in ```terraform/modules/mobile_user/README.md```
 
 ### Notes
 
