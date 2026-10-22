@@ -17,4 +17,6 @@ locals {
   iam_role_name_cloudtrail_to_cloudwatch   = "cloudtrail-to-cloudwatch"
 
   sns_topic_name = "cloudwatch-alarms-from-cloudtrail"
+
+  user_notifications_notification_configuration_name = "cloudwatch-alarms-from-cloudtrail"
 }
