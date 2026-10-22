@@ -31,6 +31,8 @@ No modules.
 | [aws_glue_catalog_table.cloudtrail_logs](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/glue_catalog_table) | resource |
 | [aws_iam_role.cloudtrail_to_cloudwatch_role](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.cloudtrail_to_cloudwatch_policy](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_role_policy) | resource |
+| [aws_notifications_event_rule.cloudwatch_alarms_from_cloudtrail](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/notifications_event_rule) | resource |
+| [aws_notifications_notification_configuration.cloudwatch_alarms_from_cloudtrail](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/notifications_notification_configuration) | resource |
 | [aws_sns_topic.cloudwatch_alarms_from_cloudtrail](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_subscription.email](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/sns_topic_subscription) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/caller_identity) | data source |
