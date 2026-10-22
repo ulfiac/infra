@@ -33,7 +33,6 @@ No modules.
 | [aws_iam_role_policy.cloudtrail_to_cloudwatch_policy](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_role_policy) | resource |
 | [aws_sns_topic.cloudwatch_alarms_from_cloudtrail](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_subscription.email](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/sns_topic_subscription) | resource |
-| [aws_sns_topic_subscription.sms](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/sns_topic_subscription) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.cloudtrail_to_cloudwatch_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.cloudtrail_to_cloudwatch_policy](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/iam_policy_document) | data source |
@@ -46,7 +45,6 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | athena\_database\_name | The name of the Athena database where the table for CloudTrail logs will be created. | `string` | n/a | yes |
-| aws\_account\_cell\_number | The cell number for Cloudwatch alarm notifications via SNS | `string` | n/a | yes |
 | aws\_account\_email | The email address for Cloudwatch alarm notifications via SNS. | `string` | n/a | yes |
 | log\_bucket\_name | The name of the S3 bucket to store CloudTrail logs. | `string` | n/a | yes |
 
