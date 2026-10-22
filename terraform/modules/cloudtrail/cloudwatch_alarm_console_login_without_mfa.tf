@@ -22,6 +22,7 @@ resource "aws_cloudwatch_metric_alarm" "console_login_without_mfa" {
   period              = 300 # in seconds, 5 minutes
   statistic           = "Sum"
   threshold           = 1
+  treat_missing_data  = "notBreaching"
 
   alarm_actions = [aws_sns_topic.cloudwatch_alarms_from_cloudtrail.arn]
   ok_actions    = [aws_sns_topic.cloudwatch_alarms_from_cloudtrail.arn]
