@@ -21,6 +21,6 @@ jobs:
     with:
       aws_account: all
       aws_region: all
-      filter: eks_vpc
+      filter: eks_*
       terragrunt_action: destroy
     secrets: inherit
