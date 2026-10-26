@@ -7,7 +7,7 @@ Terraform module to create a map of key/value pairs that serve as AWS tags.
 
 | Name | Version |
 |------|---------|
-| terraform | 1.16.5 |
+| terraform | 1.16.6 |
 
 ## Providers
 

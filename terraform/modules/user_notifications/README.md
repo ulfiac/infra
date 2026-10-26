@@ -8,14 +8,14 @@ notification configurations to enable push notifications to the AWS Console Mobi
 
 | Name | Version |
 |------|---------|
-| terraform | 1.16.5 |
-| aws | 6.68.0 |
+| terraform | 1.16.6 |
+| aws | 6.69.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.68.0 |
+| aws | 6.69.1 |
 
 ## Modules
 
@@ -25,7 +25,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_notifications_notification_hub.hub](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/notifications_notification_hub) | resource |
+| [aws_notifications_notification_hub.hub](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/notifications_notification_hub) | resource |
 
 ## Inputs
 

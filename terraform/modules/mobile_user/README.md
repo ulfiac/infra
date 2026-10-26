@@ -73,14 +73,14 @@ From a desktop, as the regular user (with the admin role):
 
 | Name | Version |
 |------|---------|
-| terraform | 1.16.5 |
-| aws | 6.68.0 |
+| terraform | 1.16.6 |
+| aws | 6.69.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.68.0 |
+| aws | 6.69.1 |
 
 ## Modules
 
@@ -90,19 +90,19 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_iam_group.mobile_user](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_group) | resource |
-| [aws_iam_group_policy.self_manage](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_group_policy) | resource |
-| [aws_iam_group_policy_attachment.app_access](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_group_policy_attachment) | resource |
-| [aws_iam_group_policy_attachment.guardrails](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_group_policy_attachment) | resource |
-| [aws_iam_policy.app_access](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.guardrails](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_policy) | resource |
-| [aws_iam_user.mobile_user](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_user) | resource |
-| [aws_iam_user_group_membership.mobile_user](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_user_group_membership) | resource |
-| [aws_iam_user_login_profile.mobile_user](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/resources/iam_user_login_profile) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/caller_identity) | data source |
-| [aws_iam_policy_document.app_access](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.guardrails](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.self_manage](https://registry.terraform.io/providers/hashicorp/aws/6.68.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_group.mobile_user](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_group) | resource |
+| [aws_iam_group_policy.self_manage](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_group_policy) | resource |
+| [aws_iam_group_policy_attachment.app_access](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_group_policy_attachment) | resource |
+| [aws_iam_group_policy_attachment.guardrails](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_group_policy_attachment) | resource |
+| [aws_iam_policy.app_access](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.guardrails](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_policy) | resource |
+| [aws_iam_user.mobile_user](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_user) | resource |
+| [aws_iam_user_group_membership.mobile_user](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_user_group_membership) | resource |
+| [aws_iam_user_login_profile.mobile_user](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/iam_user_login_profile) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.app_access](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.guardrails](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.self_manage](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
