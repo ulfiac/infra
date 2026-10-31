@@ -1,5 +1,5 @@
-name: destroy eks
-run-name: "destroy: aws, all, all, eks_vpc"
+name: destroy aws eks
+run-name: "destroy: aws, all, all, eks_*"
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: destroy-eks
+  group: aws-eks
   cancel-in-progress: false
 
 permissions:
@@ -15,8 +15,8 @@ permissions:
   id-token: write
 
 jobs:
-  destroy_eks:
-    name: destroy eks
+  destroy_aws_eks:
+    name: destroy aws eks
     uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
     with:
       aws_account: all

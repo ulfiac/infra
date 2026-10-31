@@ -1,0 +1,44 @@
+name: deploy aws eks
+run-name: "deploy: aws, all, all, eks_*"
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: aws-eks
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  plan_aws_eks:
+    name: plan aws eks
+    uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
+    with:
+      aws_account: all
+      aws_region: all
+      filter: eks_*
+      terragrunt_action: plan
+    secrets: inherit
+
+  get-approval:
+    name: get approval
+    runs-on: ubuntu-26.04
+    environment: 'approval_required'
+    needs: plan_aws_eks
+    steps:
+      - name: approval requested
+        run: echo 'Approval provided. Job will continue.'
+
+  apply_aws_eks:
+    name: apply aws eks
+    uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
+    needs: get-approval
+    with:
+      aws_account: all
+      aws_region: all
+      filter: eks_*
+      terragrunt_action: apply
+    secrets: inherit
