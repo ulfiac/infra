@@ -4,12 +4,12 @@ resource "aws_eks_cluster" "eks" {
   bootstrap_self_managed_addons = true
   deletion_protection           = false
   enabled_cluster_log_types     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
-  role_arn                      = aws_iam_role.eks.arn
+  role_arn                      = aws_iam_role.eks_cluster.arn
   version                       = var.eks_version
 
   access_config {
     authentication_mode                         = "API"
-    bootstrap_cluster_creator_admin_permissions = true
+    bootstrap_cluster_creator_admin_permissions = false
   }
 
   vpc_config {
@@ -21,6 +21,6 @@ resource "aws_eks_cluster" "eks" {
 
   depends_on = [
     aws_cloudwatch_log_group.eks_cluster,
-    aws_iam_role_policy_attachment.eks
+    aws_iam_role_policy_attachment.eks_cluster
   ]
 }
