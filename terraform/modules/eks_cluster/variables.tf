@@ -14,7 +14,7 @@ variable "private_subnet_ids" {
 }
 
 variable "cluster_admin_role_names" {
-  default     = ["role-switch-admin"]
+  default     = ["role-switch-admin", "role-switch-oidc"]
   description = "The names of the IAM roles that should have cluster admin access"
   type        = set(string)
 }
