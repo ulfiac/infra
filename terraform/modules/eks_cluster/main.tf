@@ -7,6 +7,7 @@ locals {
 
   version_eks_addon_coredns      = lookup(var.versions, "eks_addon_coredns", data.aws_eks_addon_version.coredns_default.version)
   version_eks_addon_pod_identity = lookup(var.versions, "eks_addon_pod_identity", data.aws_eks_addon_version.pod_identity_default.version)
+  version_eks_addon_vpc_cni      = lookup(var.versions, "eks_addon_vpc_cni", data.aws_eks_addon_version.vpc_cni_default.version)
   version_eks_cluster            = lookup(var.versions, "eks_cluster", data.aws_eks_cluster_versions.default.cluster_versions[0].cluster_version)
   version_eks_node_group         = lookup(var.versions, "eks_node_group", aws_eks_cluster.eks.version)
 }
