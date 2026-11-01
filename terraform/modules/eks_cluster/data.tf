@@ -1,5 +1,13 @@
-data "aws_eks_cluster_versions" "default" {
-  default_only = true
+data "aws_eks_addon_version" "coredns_default" {
+  addon_name         = "coredns"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = false
+}
+
+data "aws_eks_addon_version" "coredns_latest" {
+  addon_name         = "coredns"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = true
 }
 
 data "aws_eks_addon_version" "pod_identity_default" {
@@ -12,6 +20,10 @@ data "aws_eks_addon_version" "pod_identity_latest" {
   addon_name         = "eks-pod-identity-agent"
   kubernetes_version = aws_eks_cluster.eks.version
   most_recent        = true
+}
+
+data "aws_eks_cluster_versions" "default" {
+  default_only = true
 }
 
 data "aws_iam_policy" "amazon_ec2_container_registry_read_only" {
