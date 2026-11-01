@@ -13,6 +13,14 @@ output "eks_cluster_version_default" {
   value       = var.verbose ? data.aws_eks_cluster_versions.default : null
 }
 
+output "eks_addon_coredns_version" {
+  description = "The version object for the EKS addon coredns (both default and latest)"
+  value = var.verbose ? {
+    default = data.aws_eks_addon_version.coredns_default
+    latest  = data.aws_eks_addon_version.coredns_latest
+  } : null
+}
+
 output "eks_addon_pod_identity_version" {
   description = "The version object for the EKS addon pod identity (both default and latest)"
   value = var.verbose ? {
@@ -24,6 +32,12 @@ output "eks_addon_pod_identity_version" {
 output "versions" {
   description = "The version information for the EKS cluster and addons"
   value = {
+    eks_addon_coredns = {
+      "actual  " = length(aws_eks_addon.coredns.arn) > 0 ? aws_eks_addon.coredns.addon_version : null
+      "default " = data.aws_eks_addon_version.coredns_default.version
+      "latest  " = data.aws_eks_addon_version.coredns_latest.version
+      "pinned  " = lookup(var.versions, "eks_addon_coredns", "not pinned")
+    }
     eks_addon_pod_identity = {
       "actual  " = length(aws_eks_addon.pod_identity.arn) > 0 ? aws_eks_addon.pod_identity.addon_version : null
       "default " = data.aws_eks_addon_version.pod_identity_default.version
