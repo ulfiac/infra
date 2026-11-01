@@ -22,6 +22,18 @@ data "aws_eks_addon_version" "pod_identity_latest" {
   most_recent        = true
 }
 
+data "aws_eks_addon_version" "vpc_cni_default" {
+  addon_name         = "vpc-cni"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = false
+}
+
+data "aws_eks_addon_version" "vpc_cni_latest" {
+  addon_name         = "vpc-cni"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = true
+}
+
 data "aws_eks_cluster_versions" "default" {
   default_only = true
 }
