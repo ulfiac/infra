@@ -29,6 +29,7 @@ No modules.
 | [aws_eks_access_policy_association.admin](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/eks_access_policy_association) | resource |
 | [aws_eks_addon.coredns](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.pod_identity](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/eks_addon) | resource |
 | [aws_eks_cluster.eks](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/eks_cluster) | resource |
 | [aws_eks_node_group.bottlerocket_arm_64](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/eks_node_group) | resource |
 | [aws_eks_node_group.bottlerocket_x86_64](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/eks_node_group) | resource |
@@ -42,6 +43,8 @@ No modules.
 | [aws_eks_addon_version.coredns_latest](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.pod_identity_default](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.pod_identity_latest](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.vpc_cni_default](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.vpc_cni_latest](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_cluster_versions.default](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/eks_cluster_versions) | data source |
 | [aws_iam_policy.amazon_ec2_container_registry_read_only](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.amazon_eks_cluster_policy](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/data-sources/iam_policy) | data source |
@@ -68,6 +71,7 @@ No modules.
 |------|-------------|
 | eks\_addon\_coredns\_version | The version object for the EKS addon coredns (both default and latest) |
 | eks\_addon\_pod\_identity\_version | The version object for the EKS addon pod identity (both default and latest) |
+| eks\_addon\_vpc\_cni\_version | The version object for the EKS addon vpc cni (both default and latest) |
 | eks\_cluster | The EKS cluster object |
 | eks\_cluster\_name | The name of the EKS cluster |
 | eks\_cluster\_version\_default | The EKS cluster default version object |
