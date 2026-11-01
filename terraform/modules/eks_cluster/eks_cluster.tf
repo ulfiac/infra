@@ -5,7 +5,7 @@ resource "aws_eks_cluster" "eks" {
   deletion_protection           = false
   enabled_cluster_log_types     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
   role_arn                      = aws_iam_role.eks_cluster.arn
-  version                       = var.eks_version
+  version                       = local.version_eks_cluster
 
   access_config {
     authentication_mode                         = "API"
