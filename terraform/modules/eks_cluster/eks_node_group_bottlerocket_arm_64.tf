@@ -3,7 +3,7 @@ resource "aws_eks_node_group" "bottlerocket_arm_64" {
   node_group_name = "bottlerocket_arm_64"
   node_role_arn   = aws_iam_role.eks_node_group.arn
   subnet_ids      = var.private_subnet_ids
-  version         = var.eks_version
+  version         = local.version_eks_node_group
 
   ami_type       = "BOTTLEROCKET_ARM_64"
   capacity_type  = "ON_DEMAND"
