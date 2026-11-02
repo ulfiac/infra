@@ -21,6 +21,14 @@ output "eks_addon_coredns_version" {
   } : null
 }
 
+output "eks_addon_kube_proxy_version" {
+  description = "The version object for the EKS addon kube proxy (both default and latest)"
+  value = var.verbose ? {
+    default = data.aws_eks_addon_version.kube_proxy_default
+    latest  = data.aws_eks_addon_version.kube_proxy_latest
+  } : null
+}
+
 output "eks_addon_pod_identity_version" {
   description = "The version object for the EKS addon pod identity (both default and latest)"
   value = var.verbose ? {
@@ -45,6 +53,12 @@ output "versions" {
       "default " = data.aws_eks_addon_version.coredns_default.version
       "latest  " = data.aws_eks_addon_version.coredns_latest.version
       "pinned  " = lookup(var.versions, "eks_addon_coredns", "not pinned")
+    }
+    eks_addon_kube_proxy = {
+      "actual  " = length(aws_eks_addon.kube_proxy.arn) > 0 ? aws_eks_addon.kube_proxy.addon_version : null
+      "default " = data.aws_eks_addon_version.kube_proxy_default.version
+      "latest  " = data.aws_eks_addon_version.kube_proxy_latest.version
+      "pinned  " = lookup(var.versions, "eks_addon_kube_proxy", "not pinned")
     }
     eks_addon_pod_identity = {
       "actual  " = length(aws_eks_addon.pod_identity.arn) > 0 ? aws_eks_addon.pod_identity.addon_version : null

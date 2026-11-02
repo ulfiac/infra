@@ -10,6 +10,18 @@ data "aws_eks_addon_version" "coredns_latest" {
   most_recent        = true
 }
 
+data "aws_eks_addon_version" "kube_proxy_default" {
+  addon_name         = "kube-proxy"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = false
+}
+
+data "aws_eks_addon_version" "kube_proxy_latest" {
+  addon_name         = "kube-proxy"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = true
+}
+
 data "aws_eks_addon_version" "pod_identity_default" {
   addon_name         = "eks-pod-identity-agent"
   kubernetes_version = aws_eks_cluster.eks.version
