@@ -5,14 +5,14 @@
 
 | Name | Version |
 |------|---------|
-| terraform | 1.16.6 |
-| aws | 6.69.1 |
+| terraform | 1.17.0 |
+| aws | 6.70.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.69.1 |
+| aws | 6.70.0 |
 
 ## Modules
 
@@ -22,8 +22,8 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_budgets_budget.monthly](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/budgets_budget) | resource |
-| [aws_sns_topic.earn_credits_setup_cost_budget](https://registry.terraform.io/providers/hashicorp/aws/6.69.1/docs/resources/sns_topic) | resource |
+| [aws_budgets_budget.monthly](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/budgets_budget) | resource |
+| [aws_sns_topic.earn_credits_setup_cost_budget](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/sns_topic) | resource |
 
 ## Inputs
 
