@@ -6,9 +6,4 @@ resource "aws_eks_addon" "pod_identity" {
   tags = {
     Name = "eks-pod-identity-agent"
   }
-
-  depends_on = [
-    aws_eks_node_group.bottlerocket_arm_64,
-    aws_eks_node_group.bottlerocket_x86_64,
-  ]
 }
