@@ -9,6 +9,14 @@ resource "aws_eks_node_group" "bottlerocket_x86_64" {
   capacity_type  = "ON_DEMAND"
   instance_types = ["t3a.large"]
 
+  labels = {
+    role = "bottlerocket_x86_64"
+  }
+
+  lifecycle {
+    ignore_changes = [scaling_config[0].desired_size]
+  }
+
   scaling_config {
     desired_size = 1
     max_size     = 10
@@ -19,18 +27,9 @@ resource "aws_eks_node_group" "bottlerocket_x86_64" {
     max_unavailable = 1
   }
 
-  labels = {
-    role = "bottlerocket_x86_64"
-  }
-
   depends_on = [
     aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only,
     aws_iam_role_policy_attachment.amazon_eks_cni_policy,
     aws_iam_role_policy_attachment.amazon_eks_worker_node_policy,
   ]
-
-  # Allow external changes without Terraform plan difference
-  lifecycle {
-    ignore_changes = [scaling_config[0].desired_size]
-  }
 }
