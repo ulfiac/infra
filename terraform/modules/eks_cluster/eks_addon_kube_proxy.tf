@@ -6,12 +6,12 @@ resource "aws_eks_addon" "kube_proxy" {
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "PRESERVE"
 
+  tags = {
+    Name = "kube-proxy"
+  }
+
   depends_on = [
     aws_eks_node_group.bottlerocket_arm_64,
     aws_eks_node_group.bottlerocket_x86_64,
   ]
-
-  tags = {
-    Name = "kube-proxy"
-  }
 }
