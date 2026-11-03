@@ -1,9 +1,10 @@
 locals {
   aws_region = data.aws_region.current.region
 
-  eks_cluster_name             = "eks-${var.eks_cluster_name}-${local.aws_region}"
-  iam_role_name_eks_cluster    = "eks-${var.eks_cluster_name}-${local.aws_region}-cluster"
-  iam_role_name_eks_node_group = "eks-${var.eks_cluster_name}-${local.aws_region}-node-group"
+  eks_cluster_name                = "eks-${var.eks_cluster_name}-${local.aws_region}"
+  iam_role_name_eks_addon_vpc_cni = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-vpc-cni"
+  iam_role_name_eks_cluster       = "eks-${var.eks_cluster_name}-${local.aws_region}-cluster"
+  iam_role_name_eks_node_group    = "eks-${var.eks_cluster_name}-${local.aws_region}-node-group"
 
   version_eks_addon_coredns      = lookup(var.versions, "eks_addon_coredns", data.aws_eks_addon_version.coredns_default.version)
   version_eks_addon_kube_proxy   = lookup(var.versions, "eks_addon_kube_proxy", data.aws_eks_addon_version.kube_proxy_default.version)

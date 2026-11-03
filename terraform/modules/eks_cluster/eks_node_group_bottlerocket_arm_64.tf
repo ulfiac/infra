@@ -28,8 +28,9 @@ resource "aws_eks_node_group" "bottlerocket_arm_64" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only,
-    aws_iam_role_policy_attachment.amazon_eks_cni_policy,
-    aws_iam_role_policy_attachment.amazon_eks_worker_node_policy,
+    aws_eks_addon.pod_identity,
+    aws_eks_addon.vpc_cni,
+    aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only_policy_to_eks_node_group,
+    aws_iam_role_policy_attachment.amazon_eks_worker_node_policy_to_eks_node_group,
   ]
 }

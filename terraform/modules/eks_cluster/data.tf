@@ -50,7 +50,7 @@ data "aws_eks_cluster_versions" "default" {
   default_only = true
 }
 
-data "aws_iam_policy" "amazon_ec2_container_registry_read_only" {
+data "aws_iam_policy" "amazon_ec2_container_registry_read_only_policy" {
   name = "AmazonEC2ContainerRegistryReadOnly"
 }
 
