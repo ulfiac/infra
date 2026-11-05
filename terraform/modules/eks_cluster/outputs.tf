@@ -21,6 +21,14 @@ output "eks_addon_coredns_version" {
   } : null
 }
 
+output "eks_addon_ebs_csi_driver_version" {
+  description = "The version object for the EKS addon ebs csi driver (both default and latest)"
+  value = var.verbose ? {
+    default = data.aws_eks_addon_version.ebs_csi_driver_default
+    latest  = data.aws_eks_addon_version.ebs_csi_driver_latest
+  } : null
+}
+
 output "eks_addon_kube_proxy_version" {
   description = "The version object for the EKS addon kube proxy (both default and latest)"
   value = var.verbose ? {
@@ -53,6 +61,12 @@ output "versions" {
       "default " = data.aws_eks_addon_version.coredns_default.version
       "latest  " = data.aws_eks_addon_version.coredns_latest.version
       "pinned  " = lookup(var.versions, "eks_addon_coredns", "not pinned")
+    }
+    eks_addon_ebs_csi_driver = {
+      "actual  " = length(aws_eks_addon.ebs_csi_driver.arn) > 0 ? aws_eks_addon.ebs_csi_driver.addon_version : null
+      "default " = data.aws_eks_addon_version.ebs_csi_driver_default.version
+      "latest  " = data.aws_eks_addon_version.ebs_csi_driver_latest.version
+      "pinned  " = lookup(var.versions, "eks_addon_ebs_csi_driver", "not pinned")
     }
     eks_addon_kube_proxy = {
       "actual  " = length(aws_eks_addon.kube_proxy.arn) > 0 ? aws_eks_addon.kube_proxy.addon_version : null
