@@ -7,6 +7,11 @@ variable "cluster_admin_role_names" {
 variable "eks_cluster_name" {
   description = "The name of the EKS cluster"
   type        = string
+
+  validation {
+    condition     = length(var.eks_cluster_name) <= 20
+    error_message = "The EKS cluster name must not be more than 20 characters"
+  }
 }
 
 variable "private_subnet_ids" {
