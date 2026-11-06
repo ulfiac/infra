@@ -1,0 +1,5 @@
+misconfigurations:
+  - id: AVD-AWS-0039 # AWS-0039 (HIGH): Cluster does not have secret encryption enabled.
+    paths:
+      - "terraform/modules/eks_cluster/eks_cluster.tf"
+    statement: "The AWS-managed default encryption is just as good as a KMS key and there is no need to rotate the key on demand."

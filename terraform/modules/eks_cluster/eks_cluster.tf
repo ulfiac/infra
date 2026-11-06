@@ -1,4 +1,3 @@
-#trivy:ignore:AWS-0039 (HIGH): Cluster does not have secret encryption enabled.
 resource "aws_eks_cluster" "eks" {
   name                          = local.eks_cluster_name
   bootstrap_self_managed_addons = true
