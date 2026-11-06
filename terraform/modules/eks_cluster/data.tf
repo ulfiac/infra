@@ -46,6 +46,18 @@ data "aws_eks_addon_version" "metrics_server_latest" {
   most_recent        = true
 }
 
+data "aws_eks_addon_version" "node_monitoring_agent_default" {
+  addon_name         = "eks-node-monitoring-agent"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = false
+}
+
+data "aws_eks_addon_version" "node_monitoring_agent_latest" {
+  addon_name         = "eks-node-monitoring-agent"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = true
+}
+
 data "aws_eks_addon_version" "pod_identity_default" {
   addon_name         = "eks-pod-identity-agent"
   kubernetes_version = aws_eks_cluster.eks.version

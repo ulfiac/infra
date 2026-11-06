@@ -45,6 +45,14 @@ output "eks_addon_metrics_server_version" {
   } : null
 }
 
+output "eks_addon_node_monitoring_agent_version" {
+  description = "The version object for the EKS addon node monitoring agent (both default and latest)"
+  value = var.verbose ? {
+    default = data.aws_eks_addon_version.node_monitoring_agent_default
+    latest  = data.aws_eks_addon_version.node_monitoring_agent_latest
+  } : null
+}
+
 output "eks_addon_pod_identity_version" {
   description = "The version object for the EKS addon pod identity (both default and latest)"
   value = var.verbose ? {
@@ -87,6 +95,12 @@ output "versions" {
       "default " = data.aws_eks_addon_version.metrics_server_default.version
       "latest  " = data.aws_eks_addon_version.metrics_server_latest.version
       "pinned  " = lookup(var.versions, "eks_addon_metrics_server", "not pinned")
+    }
+    eks_addon_node_monitoring_agent = {
+      "actual  " = length(aws_eks_addon.node_monitoring_agent.arn) > 0 ? aws_eks_addon.node_monitoring_agent.addon_version : null
+      "default " = data.aws_eks_addon_version.node_monitoring_agent_default.version
+      "latest  " = data.aws_eks_addon_version.node_monitoring_agent_latest.version
+      "pinned  " = lookup(var.versions, "eks_addon_node_monitoring_agent", "not pinned")
     }
     eks_addon_pod_identity = {
       "actual  " = length(aws_eks_addon.pod_identity.arn) > 0 ? aws_eks_addon.pod_identity.addon_version : null
