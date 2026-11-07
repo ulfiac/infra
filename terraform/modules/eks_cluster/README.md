@@ -72,6 +72,8 @@ No modules.
 | [aws_iam_policy_document.eks_node_group_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_role.cluster_admin](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_role) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/region) | data source |
+| [aws_ssm_parameter.bottlerocket_arm_64_image_version](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.bottlerocket_x86_64_image_version](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
