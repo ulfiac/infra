@@ -13,6 +13,14 @@ output "eks_cluster_version_default" {
   value       = var.verbose ? data.aws_eks_cluster_versions.default : null
 }
 
+output "eks_addon_cloudwatch_observability_agent_version" {
+  description = "The version object for the EKS addon cloudwatch observability agent (both default and latest)"
+  value = var.verbose ? {
+    default = data.aws_eks_addon_version.cloudwatch_observability_agent_default
+    latest  = data.aws_eks_addon_version.cloudwatch_observability_agent_latest
+  } : null
+}
+
 output "eks_addon_coredns_version" {
   description = "The version object for the EKS addon coredns (both default and latest)"
   value = var.verbose ? {
@@ -72,6 +80,12 @@ output "eks_addon_vpc_cni_version" {
 output "versions" {
   description = "The version information for the EKS cluster and addons"
   value = {
+    eks_addon_cloudwatch_observability_agent = {
+      "actual  " = length(aws_eks_addon.cloudwatch_observability_agent.arn) > 0 ? aws_eks_addon.cloudwatch_observability_agent.addon_version : null
+      "default " = data.aws_eks_addon_version.cloudwatch_observability_agent_default.version
+      "latest  " = data.aws_eks_addon_version.cloudwatch_observability_agent_latest.version
+      "pinned  " = lookup(var.versions, "eks_addon_cloudwatch_observability_agent", "not pinned")
+    }
     eks_addon_coredns = {
       "actual  " = length(aws_eks_addon.coredns.arn) > 0 ? aws_eks_addon.coredns.addon_version : null
       "default " = data.aws_eks_addon_version.coredns_default.version

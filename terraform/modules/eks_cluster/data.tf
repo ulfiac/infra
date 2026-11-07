@@ -1,3 +1,15 @@
+data "aws_eks_addon_version" "cloudwatch_observability_agent_default" {
+  addon_name         = "amazon-cloudwatch-observability"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = false
+}
+
+data "aws_eks_addon_version" "cloudwatch_observability_agent_latest" {
+  addon_name         = "amazon-cloudwatch-observability"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = true
+}
+
 data "aws_eks_addon_version" "coredns_default" {
   addon_name         = "coredns"
   kubernetes_version = aws_eks_cluster.eks.version
@@ -104,6 +116,10 @@ data "aws_iam_policy" "amazon_eks_cni_policy" {
 
 data "aws_iam_policy" "amazon_eks_worker_node_policy" {
   name = "AmazonEKSWorkerNodePolicy"
+}
+
+data "aws_iam_policy" "cloudwatch_agent_server_policy" {
+  name = "CloudWatchAgentServerPolicy"
 }
 
 data "aws_iam_role" "cluster_admin" {
