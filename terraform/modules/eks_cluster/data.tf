@@ -113,3 +113,10 @@ data "aws_iam_role" "cluster_admin" {
 
 data "aws_region" "current" {}
 
+data "aws_ssm_parameter" "bottlerocket_arm_64_image_version" {
+  name = "/aws/service/bottlerocket/aws-k8s-${local.version_eks_node_group}/arm64/latest/image_version"
+}
+
+data "aws_ssm_parameter" "bottlerocket_x86_64_image_version" {
+  name = "/aws/service/bottlerocket/aws-k8s-${local.version_eks_node_group}/x86_64/latest/image_version"
+}
