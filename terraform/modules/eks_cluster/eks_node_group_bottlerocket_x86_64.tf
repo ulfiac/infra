@@ -2,6 +2,7 @@ resource "aws_eks_node_group" "bottlerocket_x86_64" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "bottlerocket_x86_64"
   node_role_arn   = aws_iam_role.eks_node_group.arn
+  release_version = nonsensitive(data.aws_ssm_parameter.bottlerocket_x86_64_image_version.value)
   subnet_ids      = var.private_subnet_ids
   version         = local.version_eks_node_group
 
