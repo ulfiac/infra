@@ -29,4 +29,14 @@ variable "versions" {
   default     = {}
   description = "The versions of various EKS components"
   type        = map(string)
+
+  # Clusters older than 1.28 do not envelope encrypt Kubernetes API data by default
+  # https://docs.aws.amazon.com/eks/latest/userguide/envelope-encryption.html
+  validation {
+    condition = !contains(keys(var.versions), "eks_cluster") || try(
+      tonumber(regex("^1\\.(\\d+)$", var.versions["eks_cluster"])[0]) >= 28,
+      false
+    )
+    error_message = "If versions[\"eks_cluster\"] is pinned, it must be in the form \"1.NN\" and be 1.28 or newer."
+  }
 }
