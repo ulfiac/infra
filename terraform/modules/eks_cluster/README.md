@@ -31,6 +31,7 @@ No modules.
 | [aws_eks_addon.ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.kube_proxy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.metrics_server](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.node_monitoring_agent](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.pod_identity](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
 | [aws_eks_cluster.eks](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_cluster) | resource |
@@ -53,6 +54,8 @@ No modules.
 | [aws_eks_addon_version.kube_proxy_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.metrics_server_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.metrics_server_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.node_monitoring_agent_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.node_monitoring_agent_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.pod_identity_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.pod_identity_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.vpc_cni_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
@@ -88,6 +91,7 @@ No modules.
 | eks\_addon\_ebs\_csi\_driver\_version | The version object for the EKS addon ebs csi driver (both default and latest) |
 | eks\_addon\_kube\_proxy\_version | The version object for the EKS addon kube proxy (both default and latest) |
 | eks\_addon\_metrics\_server\_version | The version object for the EKS addon metrics server (both default and latest) |
+| eks\_addon\_node\_monitoring\_agent\_version | The version object for the EKS addon node monitoring agent (both default and latest) |
 | eks\_addon\_pod\_identity\_version | The version object for the EKS addon pod identity (both default and latest) |
 | eks\_addon\_vpc\_cni\_version | The version object for the EKS addon vpc cni (both default and latest) |
 | eks\_cluster | The EKS cluster object |
