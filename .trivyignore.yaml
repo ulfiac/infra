@@ -1,5 +1,14 @@
 misconfigurations:
-  - id: AVD-AWS-0039 # AWS-0039 (HIGH): Cluster does not have secret encryption enabled.
+  - id: AVD-AWS-0017
+    # AWS-0017 (LOW): Log group is not encrypted.
+    # CloudWatch log groups are encrypted by default, however, to get the full benefit of controlling key rotation and other KMS aspects a KMS CMK should be used.
+    paths:
+      - "terraform/modules/eks_cluster/cloudwatch_log_group.tf"
+    statement: "This personal project does not have a need for the full benefit of controlling key rotation and the other aspects of a KMS CMK."
+
+  - id: AVD-AWS-0039
+    # AWS-0039 (HIGH): Cluster does not have secret encryption enabled.
+    # EKS cluster resources should have the encryption_config block set with protection of the secrets resource.
     paths:
       - "terraform/modules/eks_cluster/eks_cluster.tf"
-    statement: "The AWS-managed default encryption is just as good as a KMS key and there is no need to rotate the key on demand."
+    statement: "The AWS-managed key used for envelope encryption by default is satisfactory for this personal project."
