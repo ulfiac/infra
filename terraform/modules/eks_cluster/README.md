@@ -40,6 +40,7 @@ No modules.
 | [aws_eks_cluster.eks](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_cluster) | resource |
 | [aws_eks_node_group.bottlerocket_arm_64](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_node_group) | resource |
 | [aws_eks_node_group.bottlerocket_x86_64](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_node_group) | resource |
+| [aws_eks_pod_identity_association.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_pod_identity_association) | resource |
 | [aws_iam_policy.cert_manager_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_policy) | resource |
 | [aws_iam_role.eks_addon_cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.eks_addon_cloudwatch_observability](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
