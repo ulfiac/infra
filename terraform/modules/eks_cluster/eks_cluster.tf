@@ -19,6 +19,7 @@ resource "aws_eks_cluster" "eks" {
   }
 
   depends_on = [
+    aws_cloudwatch_log_group.cloudwatch_observability_agent,
     aws_cloudwatch_log_group.eks_cluster,
     aws_iam_role_policy_attachment.eks_cluster_policy_to_eks_cluster,
   ]
