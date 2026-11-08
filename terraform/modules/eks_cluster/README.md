@@ -24,6 +24,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_cloudwatch_log_group.cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/cloudwatch_log_group) | resource |
 | [aws_cloudwatch_log_group.eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/cloudwatch_log_group) | resource |
 | [aws_eks_access_entry.admin](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_access_entry) | resource |
 | [aws_eks_access_policy_association.admin](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_access_policy_association) | resource |
