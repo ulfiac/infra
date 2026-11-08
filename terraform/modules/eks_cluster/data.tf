@@ -1,3 +1,15 @@
+data "aws_eks_addon_version" "cert_manager_default" {
+  addon_name         = "cert-manager"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = false
+}
+
+data "aws_eks_addon_version" "cert_manager_latest" {
+  addon_name         = "cert-manager"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = true
+}
+
 data "aws_eks_addon_version" "cloudwatch_observability_agent_default" {
   addon_name         = "amazon-cloudwatch-observability"
   kubernetes_version = aws_eks_cluster.eks.version

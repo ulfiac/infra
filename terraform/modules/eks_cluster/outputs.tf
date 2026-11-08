@@ -13,6 +13,14 @@ output "eks_cluster_version_default" {
   value       = var.verbose ? data.aws_eks_cluster_versions.default : null
 }
 
+output "eks_addon_cert_manager_version" {
+  description = "The version object for the EKS addon cert manager (both default and latest)"
+  value = var.verbose ? {
+    default = data.aws_eks_addon_version.cert_manager_default
+    latest  = data.aws_eks_addon_version.cert_manager_latest
+  } : null
+}
+
 output "eks_addon_cloudwatch_observability_agent_version" {
   description = "The version object for the EKS addon cloudwatch observability agent (both default and latest)"
   value = var.verbose ? {
@@ -80,6 +88,12 @@ output "eks_addon_vpc_cni_version" {
 output "versions" {
   description = "The version information for the EKS cluster and addons"
   value = {
+    eks_addon_cert_manager = {
+      "actual  " = length(aws_eks_addon.cert_manager.arn) > 0 ? aws_eks_addon.cert_manager.addon_version : null
+      "default " = data.aws_eks_addon_version.cert_manager_default.version
+      "latest  " = data.aws_eks_addon_version.cert_manager_latest.version
+      "pinned  " = lookup(var.versions, "eks_addon_cert_manager", "not pinned")
+    }
     eks_addon_cloudwatch_observability_agent = {
       "actual  " = length(aws_eks_addon.cloudwatch_observability_agent.arn) > 0 ? aws_eks_addon.cloudwatch_observability_agent.addon_version : null
       "default " = data.aws_eks_addon_version.cloudwatch_observability_agent_default.version
