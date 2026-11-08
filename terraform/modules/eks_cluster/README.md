@@ -28,6 +28,7 @@ No modules.
 | [aws_cloudwatch_log_group.eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/cloudwatch_log_group) | resource |
 | [aws_eks_access_entry.admin](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_access_entry) | resource |
 | [aws_eks_access_policy_association.admin](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_access_policy_association) | resource |
+| [aws_eks_addon.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.coredns](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
@@ -39,6 +40,8 @@ No modules.
 | [aws_eks_cluster.eks](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_cluster) | resource |
 | [aws_eks_node_group.bottlerocket_arm_64](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_node_group) | resource |
 | [aws_eks_node_group.bottlerocket_x86_64](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_node_group) | resource |
+| [aws_iam_policy.cert_manager_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_policy) | resource |
+| [aws_iam_role.eks_addon_cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.eks_addon_cloudwatch_observability](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.eks_addon_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.eks_addon_vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
@@ -48,8 +51,11 @@ No modules.
 | [aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only_policy_to_eks_node_group](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.amazon_eks_cni_policy_to_eks_addon_vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.amazon_eks_worker_node_policy_to_eks_node_group](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.cert_manager_policy_to_eks_addon_cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.cloudwatch_agent_server_policy_to_eks_addon_cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.eks_cluster_policy_to_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_eks_addon_version.cert_manager_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.cert_manager_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.cloudwatch_observability_agent_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.cloudwatch_observability_agent_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.coredns_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
@@ -73,6 +79,8 @@ No modules.
 | [aws_iam_policy.amazon_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.amazon_eks_worker_node_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.cloudwatch_agent_server_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy_document.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.eks_addon_cert_manager_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.eks_addon_cloudwatch_observability_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.eks_addon_ebs_csi_driver_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.eks_addon_vpc_cni_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
@@ -97,6 +105,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| eks\_addon\_cert\_manager\_version | The version object for the EKS addon cert manager (both default and latest) |
 | eks\_addon\_cloudwatch\_observability\_agent\_version | The version object for the EKS addon cloudwatch observability agent (both default and latest) |
 | eks\_addon\_coredns\_version | The version object for the EKS addon coredns (both default and latest) |
 | eks\_addon\_ebs\_csi\_driver\_version | The version object for the EKS addon ebs csi driver (both default and latest) |
