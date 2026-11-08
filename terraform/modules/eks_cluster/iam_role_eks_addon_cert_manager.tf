@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "eks_addon_cert_manager_assume_role_policy" {
 }
 
 resource "aws_iam_role" "eks_addon_cert_manager" {
-  name               = local.iam_role_name_eks_addon_cert_manager
+  name               = local.name_iam_role_eks_addon_cert_manager
   assume_role_policy = data.aws_iam_policy_document.eks_addon_cert_manager_assume_role_policy.json
 }
 

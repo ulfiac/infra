@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "eks" {
-  name                          = local.eks_cluster_name
+  name                          = local.name_eks_cluster
   bootstrap_self_managed_addons = true
   deletion_protection           = false
   enabled_cluster_log_types     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]

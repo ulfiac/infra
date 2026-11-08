@@ -1,15 +1,14 @@
 locals {
   aws_region = data.aws_region.current.region
 
-  eks_cluster_name                                       = "eks-${var.eks_cluster_name}-${local.aws_region}"
-  iam_role_name_eks_addon_cert_manager                   = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-cert-manager"
-  iam_role_name_eks_addon_cloudwatch_observability_agent = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-cloudwatch-agent"
-  iam_role_name_eks_addon_ebs_csi_driver                 = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-ebs-csi-driver"
-  iam_role_name_eks_addon_vpc_cni                        = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-vpc-cni"
-  iam_role_name_eks_cluster                              = "eks-${var.eks_cluster_name}-${local.aws_region}-cluster"
-  iam_role_name_eks_node_group                           = "eks-${var.eks_cluster_name}-${local.aws_region}-node-group"
-
-  name_iam_policy_eks_addon_cert_manager = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-cert-manager"
+  name_eks_cluster                                       = "eks-${var.eks_cluster_name}-${local.aws_region}"
+  name_iam_policy_eks_addon_cert_manager                 = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-cert-manager"
+  name_iam_role_eks_addon_cert_manager                   = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-cert-manager"
+  name_iam_role_eks_addon_cloudwatch_observability_agent = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-cloudwatch-agent"
+  name_iam_role_eks_addon_ebs_csi_driver                 = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-ebs-csi-driver"
+  name_iam_role_eks_addon_vpc_cni                        = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-vpc-cni"
+  name_iam_role_eks_cluster                              = "eks-${var.eks_cluster_name}-${local.aws_region}-cluster"
+  name_iam_role_eks_node_group                           = "eks-${var.eks_cluster_name}-${local.aws_region}-node-group"
 
   version_eks_addon_cert_manager                   = lookup(var.versions, "eks_addon_cert_manager", data.aws_eks_addon_version.cert_manager_latest.version)
   version_eks_addon_cloudwatch_observability_agent = lookup(var.versions, "eks_addon_cloudwatch_observability_agent", data.aws_eks_addon_version.cloudwatch_observability_agent_latest.version)

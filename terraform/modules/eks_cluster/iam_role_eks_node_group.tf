@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "eks_node_group_assume_role_policy" {
 }
 
 resource "aws_iam_role" "eks_node_group" {
-  name               = local.iam_role_name_eks_node_group
+  name               = local.name_iam_role_eks_node_group
   assume_role_policy = data.aws_iam_policy_document.eks_node_group_assume_role_policy.json
 }
 
