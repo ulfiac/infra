@@ -69,6 +69,14 @@ output "eks_addon_pod_identity_version" {
   } : null
 }
 
+output "eks_addon_secrets_store_csi_driver_provider_version" {
+  description = "The version object for the EKS addon secrets store csi driver provider (both default and latest)"
+  value = var.verbose ? {
+    default = data.aws_eks_addon_version.secrets_store_csi_driver_provider_default
+    latest  = data.aws_eks_addon_version.secrets_store_csi_driver_provider_latest
+  } : null
+}
+
 output "eks_addon_vpc_cni_version" {
   description = "The version object for the EKS addon vpc cni (both default and latest)"
   value = var.verbose ? {
@@ -121,6 +129,12 @@ output "versions" {
       "default " = data.aws_eks_addon_version.pod_identity_default.version
       "latest  " = data.aws_eks_addon_version.pod_identity_latest.version
       "pinned  " = lookup(var.versions, "eks_addon_pod_identity", "not pinned")
+    }
+    eks_addon_secrets_store_csi_driver_provider = {
+      "actual  " = length(aws_eks_addon.secrets_store_csi_driver_provider.arn) > 0 ? aws_eks_addon.secrets_store_csi_driver_provider.addon_version : null
+      "default " = data.aws_eks_addon_version.secrets_store_csi_driver_provider_default.version
+      "latest  " = data.aws_eks_addon_version.secrets_store_csi_driver_provider_latest.version
+      "pinned  " = lookup(var.versions, "eks_addon_secrets_store_csi_driver_provider", "not pinned")
     }
     eks_addon_vpc_cni = {
       "actual  " = length(aws_eks_addon.vpc_cni.arn) > 0 ? aws_eks_addon.vpc_cni.addon_version : null

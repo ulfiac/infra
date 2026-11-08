@@ -82,6 +82,18 @@ data "aws_eks_addon_version" "pod_identity_latest" {
   most_recent        = true
 }
 
+data "aws_eks_addon_version" "secrets_store_csi_driver_provider_default" {
+  addon_name         = "aws-secrets-store-csi-driver-provider"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = false
+}
+
+data "aws_eks_addon_version" "secrets_store_csi_driver_provider_latest" {
+  addon_name         = "aws-secrets-store-csi-driver-provider"
+  kubernetes_version = aws_eks_cluster.eks.version
+  most_recent        = true
+}
+
 data "aws_eks_addon_version" "vpc_cni_default" {
   addon_name         = "vpc-cni"
   kubernetes_version = aws_eks_cluster.eks.version
@@ -116,6 +128,10 @@ data "aws_iam_policy" "amazon_eks_cni_policy" {
 
 data "aws_iam_policy" "amazon_eks_worker_node_policy" {
   name = "AmazonEKSWorkerNodePolicy"
+}
+
+data "aws_iam_policy" "aws_secrets_manager_client_read_only_access_policy" {
+  name = "AWSSecretsManagerClientReadOnlyAccess"
 }
 
 data "aws_iam_policy" "cloudwatch_agent_server_policy" {
