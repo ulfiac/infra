@@ -7,14 +7,14 @@ Terraform module to create an EKS cluster.
 
 | Name | Version |
 |------|---------|
-| terraform | 1.17.0 |
-| aws | 6.70.0 |
+| terraform | 1.17.1 |
+| aws | 6.71.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.70.0 |
+| aws | 6.71.0 |
 
 ## Modules
 
@@ -24,73 +24,73 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_cloudwatch_log_group.cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/cloudwatch_log_group) | resource |
-| [aws_cloudwatch_log_group.eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/cloudwatch_log_group) | resource |
-| [aws_eks_access_entry.admin](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_access_entry) | resource |
-| [aws_eks_access_policy_association.admin](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_access_policy_association) | resource |
-| [aws_eks_addon.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.coredns](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.kube_proxy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.metrics_server](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.node_monitoring_agent](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.pod_identity](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_addon) | resource |
-| [aws_eks_cluster.eks](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_cluster) | resource |
-| [aws_eks_node_group.bottlerocket_arm_64](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_node_group) | resource |
-| [aws_eks_node_group.bottlerocket_x86_64](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_node_group) | resource |
-| [aws_eks_pod_identity_association.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/eks_pod_identity_association) | resource |
-| [aws_iam_policy.cert_manager_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_policy) | resource |
-| [aws_iam_role.eks_addon_cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
-| [aws_iam_role.eks_addon_cloudwatch_observability](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
-| [aws_iam_role.eks_addon_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
-| [aws_iam_role.eks_addon_vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
-| [aws_iam_role.eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
-| [aws_iam_role.eks_node_group](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role) | resource |
-| [aws_iam_role_policy_attachment.amazon_ebs_csi_driver_policy_to_eks_addon_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only_policy_to_eks_node_group](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.amazon_eks_cni_policy_to_eks_addon_vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.amazon_eks_worker_node_policy_to_eks_node_group](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.cert_manager_policy_to_eks_addon_cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.cloudwatch_agent_server_policy_to_eks_addon_cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.eks_cluster_policy_to_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_eks_addon_version.cert_manager_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.cert_manager_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.cloudwatch_observability_agent_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.cloudwatch_observability_agent_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.coredns_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.coredns_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.ebs_csi_driver_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.ebs_csi_driver_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.kube_proxy_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.kube_proxy_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.metrics_server_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.metrics_server_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.node_monitoring_agent_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.node_monitoring_agent_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.pod_identity_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.pod_identity_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.vpc_cni_default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_addon_version.vpc_cni_latest](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_addon_version) | data source |
-| [aws_eks_cluster_versions.default](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/eks_cluster_versions) | data source |
-| [aws_iam_policy.amazon_ebs_csi_driver_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy.amazon_ec2_container_registry_read_only_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy.amazon_eks_cluster_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy.amazon_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy.amazon_eks_worker_node_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy.cloudwatch_agent_server_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy_document.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.eks_addon_cert_manager_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.eks_addon_cloudwatch_observability_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.eks_addon_ebs_csi_driver_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.eks_addon_vpc_cni_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.eks_cluster_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.eks_node_group_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_role.cluster_admin](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/iam_role) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/region) | data source |
-| [aws_ssm_parameter.bottlerocket_arm_64_image_version](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.bottlerocket_x86_64_image_version](https://registry.terraform.io/providers/hashicorp/aws/6.70.0/docs/data-sources/ssm_parameter) | data source |
+| [aws_cloudwatch_log_group.cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/cloudwatch_log_group) | resource |
+| [aws_cloudwatch_log_group.eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/cloudwatch_log_group) | resource |
+| [aws_eks_access_entry.admin](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_access_entry) | resource |
+| [aws_eks_access_policy_association.admin](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_access_policy_association) | resource |
+| [aws_eks_addon.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.coredns](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.kube_proxy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.metrics_server](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.node_monitoring_agent](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.pod_identity](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_addon.vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_addon) | resource |
+| [aws_eks_cluster.eks](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_cluster) | resource |
+| [aws_eks_node_group.bottlerocket_arm_64](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_node_group) | resource |
+| [aws_eks_node_group.bottlerocket_x86_64](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_node_group) | resource |
+| [aws_eks_pod_identity_association.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/eks_pod_identity_association) | resource |
+| [aws_iam_policy.cert_manager_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_policy) | resource |
+| [aws_iam_role.eks_addon_cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role) | resource |
+| [aws_iam_role.eks_addon_cloudwatch_observability](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role) | resource |
+| [aws_iam_role.eks_addon_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role) | resource |
+| [aws_iam_role.eks_addon_vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role) | resource |
+| [aws_iam_role.eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role) | resource |
+| [aws_iam_role.eks_node_group](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.amazon_ebs_csi_driver_policy_to_eks_addon_ebs_csi_driver](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.amazon_ec2_container_registry_read_only_policy_to_eks_node_group](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.amazon_eks_cni_policy_to_eks_addon_vpc_cni](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.amazon_eks_worker_node_policy_to_eks_node_group](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.cert_manager_policy_to_eks_addon_cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.cloudwatch_agent_server_policy_to_eks_addon_cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.eks_cluster_policy_to_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_eks_addon_version.cert_manager_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.cert_manager_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.cloudwatch_observability_agent_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.cloudwatch_observability_agent_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.coredns_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.coredns_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.ebs_csi_driver_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.ebs_csi_driver_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.kube_proxy_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.kube_proxy_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.metrics_server_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.metrics_server_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.node_monitoring_agent_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.node_monitoring_agent_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.pod_identity_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.pod_identity_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.vpc_cni_default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_addon_version.vpc_cni_latest](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_addon_version) | data source |
+| [aws_eks_cluster_versions.default](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/eks_cluster_versions) | data source |
+| [aws_iam_policy.amazon_ebs_csi_driver_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.amazon_ec2_container_registry_read_only_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.amazon_eks_cluster_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.amazon_eks_cni_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.amazon_eks_worker_node_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.cloudwatch_agent_server_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy_document.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.eks_addon_cert_manager_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.eks_addon_cloudwatch_observability_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.eks_addon_ebs_csi_driver_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.eks_addon_vpc_cni_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.eks_cluster_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.eks_node_group_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_role.cluster_admin](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/iam_role) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/region) | data source |
+| [aws_ssm_parameter.bottlerocket_arm_64_image_version](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.bottlerocket_x86_64_image_version](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
