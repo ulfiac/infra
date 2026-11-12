@@ -19,7 +19,7 @@ resource "aws_eks_node_group" "bottlerocket_arm_64" {
   }
 
   scaling_config {
-    desired_size = 1
+    desired_size = 2
     max_size     = 10
     min_size     = 0
   }
