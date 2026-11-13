@@ -1,3 +1,13 @@
+variable "codebuild_runner_security_group_id" {
+  description = "The security group ID for the CodeBuild runner"
+  type        = string
+
+  validation {
+    condition     = can(regex("^sg-([0-9a-f]{8}|[0-9a-f]{17})$", var.codebuild_runner_security_group_id))
+    error_message = "The security_group_id must start with 'sg-' followed by 8 or 17 lowercase hexadecimal characters."
+  }
+}
+
 variable "cluster_admin_role_names" {
   default     = ["role-switch-admin"]
   description = "The names of the IAM roles that should have cluster admin access"
@@ -17,6 +27,13 @@ variable "eks_cluster_name" {
 variable "private_subnet_ids" {
   description = "The IDs of the private subnets for the EKS cluster"
   type        = list(string)
+
+  validation {
+    condition = alltrue([
+      for id in var.private_subnet_ids : can(regex("^subnet-([0-9a-f]{8}|[0-9a-f]{17})$", id))
+    ])
+    error_message = "Every item in private_subnet_ids must start with 'subnet-' followed by 8 or 17 lowercase hexadecimal characters."
+  }
 }
 
 variable "verbose" {
@@ -38,5 +55,15 @@ variable "versions" {
       false
     )
     error_message = "If versions[\"eks_cluster\"] is pinned, it must be in the form \"1.NN\" and be 1.28 or newer."
+  }
+}
+
+variable "vpc_id" {
+  description = "The ID of the VPC for the EKS cluster"
+  type        = string
+
+  validation {
+    condition     = can(regex("^vpc-([0-9a-f]{8}|[0-9a-f]{17})$", var.vpc_id))
+    error_message = "The VPC ID must start with 'vpc-' followed by 8 or 17 lowercase hexadecimal characters."
   }
 }
