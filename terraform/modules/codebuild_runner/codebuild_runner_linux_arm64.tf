@@ -31,7 +31,7 @@ resource "aws_codebuild_project" "runner_linux_arm64" {
 
 
   depends_on = [
-    aws_cloudwatch_log_group.codebuild_runners,
+    aws_cloudwatch_log_group.codebuild_runner,
     aws_iam_role_policy_attachment.codebuild_runner,
   ]
 }
