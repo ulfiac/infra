@@ -179,7 +179,7 @@ jobs:
         if: ${{ inputs.terragrunt_action == 'destroy' }}
         run: |
           set -o pipefail
-          terragrunt run -- apply -destroy -auto-approve 2>&1 | tee tfdestroy.out
+          terragrunt run -- destroy -auto-approve 2>&1 | tee tfdestroy.out
 
       - name: show apply summary
         if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}

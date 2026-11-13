@@ -9,10 +9,10 @@ include "component" {
 
 dependency "log_bucket" {
   config_path = "../log_bucket"
-
   mock_outputs = {
     log_bucket_arn = "arn:aws:s3:::logs-${include.root.locals.merged_vars.aws_account_id}-${include.root.locals.merged_vars.aws_region}"
   }
+  mock_outputs_allowed_terraform_commands = ["validate", "plan", "show", "destroy"]
 }
 
 inputs = {
