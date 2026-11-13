@@ -26,7 +26,7 @@ resource "aws_codebuild_project" "runner_linux_arm64" {
   vpc_config {
     vpc_id             = data.aws_vpc.default.id
     security_group_ids = [aws_security_group.codebuild_runner.id]
-    subnets            = [for subnet in data.aws_subnet.default : subnet.id]
+    subnets            = data.aws_subnets.default.ids
   }
 
 
