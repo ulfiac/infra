@@ -16,8 +16,3 @@ data "aws_subnets" "default" {
     values = [data.aws_vpc.default.id]
   }
 }
-
-data "aws_subnet" "default" {
-  for_each = toset(data.aws_subnets.default.ids)
-  id       = each.value
-}
