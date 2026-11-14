@@ -8,6 +8,12 @@ variable "log_bucket_arn" {
   type        = string
 }
 
+variable "map_public_ip_on_launch" {
+  description = "Enable mapping of public IP on launch for default subnets"
+  type        = bool
+  default     = false
+}
+
 variable "verbose_output" {
   description = "Enable verbose output for debugging purposes"
   type        = bool

@@ -66,8 +66,8 @@ resource "aws_default_security_group" "adopted" {
 resource "aws_default_subnet" "adopted" {
   for_each                = toset(local.availability_zones)
   availability_zone       = each.value
-  map_public_ip_on_launch = false
   force_destroy           = false
+  map_public_ip_on_launch = var.map_public_ip_on_launch
 
   tags = {
     "Name" = "default-${each.value}"
