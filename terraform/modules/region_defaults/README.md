@@ -55,7 +55,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | log\_bucket\_arn | ARN of the S3 bucket to store logs | `string` | n/a | yes |
 | log\_bucket\_name | Name of the S3 bucket to store logs | `string` | n/a | yes |
-| map\_public\_ip\_on\_launch | Enable mapping of public IP on launch for default subnets | `bool` | `false` | no |
 | verbose\_output | Enable verbose output for debugging purposes | `bool` | `false` | no |
 
 ## Outputs
