@@ -34,8 +34,8 @@ No inputs.
 
 | Name | Description |
 |------|-------------|
-| github\_codeconnection\_arn | The ARN of the GitHub code connection |
-| github\_codeconnection\_status | The status of the GitHub code connection |
+| github\_connection\_arn | The ARN of the GitHub connection |
+| github\_connection\_status | The status of the GitHub connection |
 <!-- END_TF_DOCS -->
 
 ## Updating This README
