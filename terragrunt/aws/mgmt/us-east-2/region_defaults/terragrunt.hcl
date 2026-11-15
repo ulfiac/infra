@@ -17,7 +17,6 @@ dependency "log_bucket" {
 }
 
 inputs = {
-  log_bucket_name         = dependency.log_bucket.outputs.log_bucket_name
-  log_bucket_arn          = dependency.log_bucket.outputs.log_bucket_arn
-  map_public_ip_on_launch = true
+  log_bucket_name = dependency.log_bucket.outputs.log_bucket_name
+  log_bucket_arn  = dependency.log_bucket.outputs.log_bucket_arn
 }
