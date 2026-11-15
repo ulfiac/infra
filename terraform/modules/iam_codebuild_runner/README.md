@@ -41,7 +41,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| codebuild\_runner\_iam\_role\_arn | The ARN of the IAM role for the CodeBuild runner |
+| iam\_role\_arn | The ARN of the IAM role for the CodeBuild runner |
 <!-- END_TF_DOCS -->
 
 ## Updating This README
