@@ -13,7 +13,7 @@ dependency "github_connection" {
     github_connection_arn = "arn:aws:codeconnections:us-east-1:123456789012:connection/abcd1234-ef56-7890-abcd-1234567890ab"
   }
 
-  mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+  mock_outputs_allowed_terraform_commands = ["validate", "plan", "show"]
 }
 
 inputs = {
