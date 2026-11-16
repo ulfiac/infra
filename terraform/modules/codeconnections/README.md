@@ -8,13 +8,13 @@ Terraform module to create a GitHub CodeConnections connection. After applying, 
 | Name | Version |
 |------|---------|
 | terraform | 1.17.1 |
-| aws | 6.71.0 |
+| aws | 6.72.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.71.0 |
+| aws | 6.72.0 |
 
 ## Modules
 
@@ -24,7 +24,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_codeconnections_connection.github](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/codeconnections_connection) | resource |
+| [aws_codeconnections_connection.github](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/codeconnections_connection) | resource |
 
 ## Inputs
 
