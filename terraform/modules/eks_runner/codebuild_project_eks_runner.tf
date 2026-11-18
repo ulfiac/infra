@@ -1,6 +1,6 @@
-resource "aws_codebuild_project" "runner_linux_arm64" {
-  name         = local.name_codebuild_runner_linux_arm64
-  service_role = var.iam_role_arn
+resource "aws_codebuild_project" "eks_runner" {
+  name         = local.name_codebuild_project
+  service_role = aws_iam_role.eks_runner_service_role.arn
 
   artifacts {
     type = "NO_ARTIFACTS"
@@ -25,7 +25,7 @@ resource "aws_codebuild_project" "runner_linux_arm64" {
 
   vpc_config {
     vpc_id             = var.vpc_id
-    security_group_ids = [aws_security_group.codebuild_runner.id]
+    security_group_ids = [aws_security_group.eks_runner.id]
     subnets            = var.private_subnet_ids
   }
 
@@ -37,13 +37,16 @@ resource "aws_codebuild_project" "runner_linux_arm64" {
   }
 
   depends_on = [
-    aws_cloudwatch_log_group.codebuild_runner,
-    aws_vpc_security_group_egress_rule.codebuild_runner_egress,
+    aws_cloudwatch_log_group.eks_runner,
+    aws_iam_role_policy_attachment.eks_runner_service_role,
+    aws_iam_role_policy_attachment.eks_runner_service_role_ecr,
+    aws_iam_role_policy_attachment.eks_runner_service_role_terraform,
+    aws_vpc_security_group_egress_rule.eks_runner_egress,
   ]
 }
 
-resource "aws_codebuild_webhook" "runner_linux_arm64" {
-  project_name = aws_codebuild_project.runner_linux_arm64.name
+resource "aws_codebuild_webhook" "eks_runner" {
+  project_name = aws_codebuild_project.eks_runner.name
   build_type   = "BUILD"
 
   filter_group {

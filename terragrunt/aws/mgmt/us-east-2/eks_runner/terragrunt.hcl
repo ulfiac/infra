@@ -9,21 +9,13 @@ include "root" {
 }
 
 include "component" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/_components/eks_codebuild_runner.hcl"
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_components/eks_runner.hcl"
 }
 
 dependency "codeconnections" {
   config_path = "../../_global/codeconnections"
   mock_outputs = {
     github_connection_arn = local.mock_github_connection_arn
-  }
-  mock_outputs_allowed_terraform_commands = ["validate", "plan", "show", "destroy"]
-}
-
-dependency "iam_codebuild_runner" {
-  config_path = "../../_global/iam_codebuild_runner"
-  mock_outputs = {
-    iam_role_arn = "arn:aws:iam::${include.root.locals.merged_vars.aws_account_id}:role/codebuild-runner"
   }
   mock_outputs_allowed_terraform_commands = ["validate", "plan", "show", "destroy"]
 }
@@ -39,9 +31,7 @@ dependency "eks_vpc" {
 
 inputs = {
   github_connection_arn    = dependency.codeconnections.outputs.github_connection_arn
-  iam_role_arn             = dependency.iam_codebuild_runner.outputs.iam_role_arn
   private_subnet_ids       = dependency.eks_vpc.outputs.private_subnet_ids
   verify_github_connection = dependency.codeconnections.outputs.github_connection_arn != local.mock_github_connection_arn
   vpc_id                   = dependency.eks_vpc.outputs.vpc_id
 }
-
