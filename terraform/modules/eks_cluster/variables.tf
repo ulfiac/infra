@@ -1,17 +1,11 @@
-variable "codebuild_runner_security_group_id" {
-  description = "The security group ID for the CodeBuild runner"
-  type        = string
+variable "cluster_admin_role_arns" {
+  description = "The ARNs of the IAM roles that should have cluster admin privileges"
+  type        = set(string)
 
   validation {
-    condition     = can(regex("^sg-([0-9a-f]{8}|[0-9a-f]{17})$", var.codebuild_runner_security_group_id))
-    error_message = "The security_group_id must start with 'sg-' followed by 8 or 17 lowercase hexadecimal characters."
+    condition     = alltrue([for arn in var.cluster_admin_role_arns : can(regex("^arn:aws(-us-gov|-cn)?:iam::[0-9]{12}:role/[\\w+=,.@/-]+$", arn))])
+    error_message = "Each cluster_admin_role_arns entry must be a valid IAM role ARN (e.g., arn:aws:iam::123456789012:role/admin)."
   }
-}
-
-variable "cluster_admin_role_names" {
-  default     = ["role-switch-admin"]
-  description = "The names of the IAM roles that should have cluster admin access"
-  type        = set(string)
 }
 
 variable "eks_cluster_name" {
@@ -24,9 +18,19 @@ variable "eks_cluster_name" {
   }
 }
 
+variable "eks_runner_security_group_id" {
+  description = "The security group ID for the EKS runner"
+  type        = string
+
+  validation {
+    condition     = can(regex("^sg-([0-9a-f]{8}|[0-9a-f]{17})$", var.eks_runner_security_group_id))
+    error_message = "The security_group_id must start with 'sg-' followed by 8 or 17 lowercase hexadecimal characters."
+  }
+}
+
 variable "private_subnet_ids" {
   description = "The IDs of the private subnets for the EKS cluster"
-  type        = list(string)
+  type        = set(string)
 
   validation {
     condition = alltrue([
