@@ -9,7 +9,7 @@ locals {
   name_iam_role_eks_addon_vpc_cni                        = "eks-${var.eks_cluster_name}-${local.aws_region}-addon-vpc-cni"
   name_iam_role_eks_cluster                              = "eks-${var.eks_cluster_name}-${local.aws_region}-cluster"
   name_iam_role_eks_node_group                           = "eks-${var.eks_cluster_name}-${local.aws_region}-node-group"
-  name_vpc_security_group_https_from_codebuild_runner    = "eks-${var.eks_cluster_name}-${local.aws_region}-https-from-codebuild-runner"
+  name_vpc_security_group_https_from_eks_runner          = "eks-${var.eks_cluster_name}-${local.aws_region}-https-from-eks-runner"
 
   version_eks_addon_cert_manager                   = lookup(var.versions, "eks_addon_cert_manager", data.aws_eks_addon_version.cert_manager_latest.version)
   version_eks_addon_cloudwatch_observability_agent = lookup(var.versions, "eks_addon_cloudwatch_observability_agent", data.aws_eks_addon_version.cloudwatch_observability_agent_latest.version)

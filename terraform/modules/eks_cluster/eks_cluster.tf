@@ -14,7 +14,7 @@ resource "aws_eks_cluster" "eks" {
   vpc_config {
     endpoint_private_access = true
     endpoint_public_access  = false
-    security_group_ids      = [aws_security_group.https_from_codebuild_runner.id]
+    security_group_ids      = [aws_security_group.https_from_eks_runner.id]
     subnet_ids              = var.private_subnet_ids
   }
 
@@ -22,6 +22,6 @@ resource "aws_eks_cluster" "eks" {
     aws_cloudwatch_log_group.cloudwatch_observability_agent,
     aws_cloudwatch_log_group.eks_cluster,
     aws_iam_role_policy_attachment.eks_cluster_policy_to_eks_cluster,
-    aws_vpc_security_group_ingress_rule.https_from_codebuild_runner,
+    aws_vpc_security_group_ingress_rule.https_from_eks_runner,
   ]
 }

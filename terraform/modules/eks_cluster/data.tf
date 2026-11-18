@@ -134,11 +134,6 @@ data "aws_iam_policy" "cloudwatch_agent_server_policy" {
   name = "CloudWatchAgentServerPolicy"
 }
 
-data "aws_iam_role" "cluster_admin" {
-  for_each = var.cluster_admin_role_names
-  name     = each.value
-}
-
 data "aws_region" "current" {}
 
 data "aws_ssm_parameter" "bottlerocket_arm_64_image_version" {
