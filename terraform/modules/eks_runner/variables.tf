@@ -8,16 +8,6 @@ variable "github_connection_arn" {
   }
 }
 
-variable "iam_role_arn" {
-  description = "The ARN of the IAM role used by the CodeBuild runner"
-  type        = string
-
-  validation {
-    condition     = can(regex("^arn:aws(-us-gov|-cn)?:iam::[0-9]{12}:role/[\\w+=,.@/-]+$", var.iam_role_arn))
-    error_message = "iam_role_arn must be an IAM role ARN (e.g., arn:aws:iam::123456789012:role/codebuild-runner)."
-  }
-}
-
 variable "private_subnet_ids" {
   description = "The IDs of the private subnets in the VPC"
   type        = list(string)

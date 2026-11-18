@@ -7,7 +7,7 @@ on:
       eks_cluster:
         default: true
         type: boolean
-      eks_codebuild_runner:
+      eks_runner:
         default: true
         type: boolean
       eks_vpc:
@@ -36,7 +36,7 @@ jobs:
           FILTER: >-
             ${{ format('eks_*{0}{1}{2}',
               !inputs.eks_cluster && ',!eks_cluster*' || '',
-              !inputs.eks_codebuild_runner && ',!eks_codebuild_runner*' || '',
+              !inputs.eks_runner && ',!eks_runner*' || '',
               !inputs.eks_vpc && ',!eks_vpc*' || '') }}
         run: |
           echo "filter: ${FILTER}"
