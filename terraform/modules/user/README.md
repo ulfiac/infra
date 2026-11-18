@@ -74,6 +74,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| admin\_role\_arn | ARN of the admin IAM role |
 | encrypted\_password | encrypted password of the regular user |
 | pgp\_public\_key\_content\_sha256\_checksum | SHA256 checksum of the PGP public key content |
 <!-- END_TF_DOCS -->
