@@ -3,6 +3,16 @@ run-name: "deploy: aws, all, all, eks_*"
 
 on:
   workflow_dispatch:
+    inputs:
+      eks_cluster:
+        default: true
+        type: boolean
+      eks_codebuild_runner:
+        default: true
+        type: boolean
+      eks_vpc:
+        default: true
+        type: boolean
 
 concurrency:
   group: aws-eks
@@ -13,13 +23,33 @@ permissions:
   id-token: write
 
 jobs:
+  setup_filter:
+    name: setup filter
+    runs-on: ubuntu-26.04
+    outputs:
+      filter: ${{ steps.set_filter.outputs.filter }}
+    steps:
+      - name: set filter
+        id: set_filter
+        env:
+          # TG_FILTER is comma-separated: select all eks_* units, then exclude (!) any unchecked input
+          FILTER: >-
+            ${{ format('eks_*{0}{1}{2}',
+              !inputs.eks_cluster && ',!eks_cluster*' || '',
+              !inputs.eks_codebuild_runner && ',!eks_codebuild_runner*' || '',
+              !inputs.eks_vpc && ',!eks_vpc*' || '') }}
+        run: |
+          echo "filter: ${FILTER}"
+          echo "filter=${FILTER}" >> "${GITHUB_OUTPUT}"
+
   plan_aws_eks:
     name: plan aws eks
+    needs: setup_filter
     uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
     with:
       aws_account: all
       aws_region: all
-      filter: eks_*
+      filter: ${{ needs.setup_filter.outputs.filter }}
       terragrunt_action: plan
     secrets: inherit
 
@@ -35,10 +65,12 @@ jobs:
   apply_aws_eks:
     name: apply aws eks
     uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
-    needs: get-approval
+    needs:
+      - setup_filter
+      - get-approval
     with:
       aws_account: all
       aws_region: all
-      filter: eks_*
+      filter: ${{ needs.setup_filter.outputs.filter }}
       terragrunt_action: apply
     secrets: inherit
