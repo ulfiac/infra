@@ -7,3 +7,8 @@ output "pgp_public_key_content_sha256_checksum" {
   description = "SHA256 checksum of the PGP public key content"
   value       = data.local_file.pgp_public_key.content_sha256
 }
+
+output "admin_role_arn" {
+  description = "ARN of the admin IAM role"
+  value       = aws_iam_role.admin.arn
+}
