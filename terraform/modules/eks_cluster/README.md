@@ -27,7 +27,7 @@ No modules.
 | [aws_cloudwatch_log_group.cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/cloudwatch_log_group) | resource |
 | [aws_cloudwatch_log_group.eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/cloudwatch_log_group) | resource |
 | [aws_eks_access_entry.admin](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/eks_access_entry) | resource |
-| [aws_eks_access_policy_association.admin](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/eks_access_policy_association) | resource |
+| [aws_eks_access_policy_association.cluster_admin](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/eks_access_policy_association) | resource |
 | [aws_eks_addon.cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/eks_addon) | resource |
 | [aws_eks_addon.coredns](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/eks_addon) | resource |
@@ -55,8 +55,8 @@ No modules.
 | [aws_iam_role_policy_attachment.cert_manager_policy_to_eks_addon_cert_manager](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.cloudwatch_agent_server_policy_to_eks_addon_cloudwatch_observability_agent](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.eks_cluster_policy_to_eks_cluster](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_security_group.https_from_codebuild_runner](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/security_group) | resource |
-| [aws_vpc_security_group_ingress_rule.https_from_codebuild_runner](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/vpc_security_group_ingress_rule) | resource |
+| [aws_security_group.https_from_eks_runner](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/security_group) | resource |
+| [aws_vpc_security_group_ingress_rule.https_from_eks_runner](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_eks_addon_version.cert_manager_default](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.cert_manager_latest](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/eks_addon_version) | data source |
 | [aws_eks_addon_version.cloudwatch_observability_agent_default](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/eks_addon_version) | data source |
@@ -89,7 +89,6 @@ No modules.
 | [aws_iam_policy_document.eks_addon_vpc_cni_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.eks_cluster_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.eks_node_group_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_role.cluster_admin](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/iam_role) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/region) | data source |
 | [aws_ssm_parameter.bottlerocket_arm_64_image_version](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.bottlerocket_x86_64_image_version](https://registry.terraform.io/providers/hashicorp/aws/6.72.0/docs/data-sources/ssm_parameter) | data source |
@@ -98,10 +97,10 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cluster\_admin\_role\_names | The names of the IAM roles that should have cluster admin access | `set(string)` | <pre>[<br/>  "role-switch-admin"<br/>]</pre> | no |
-| codebuild\_runner\_security\_group\_id | The security group ID for the CodeBuild runner | `string` | n/a | yes |
+| cluster\_admin\_role\_arns | The ARNs of the IAM roles that should have cluster admin privileges | `set(string)` | n/a | yes |
 | eks\_cluster\_name | The name of the EKS cluster | `string` | n/a | yes |
-| private\_subnet\_ids | The IDs of the private subnets for the EKS cluster | `list(string)` | n/a | yes |
+| eks\_runner\_security\_group\_id | The security group ID for the EKS runner | `string` | n/a | yes |
+| private\_subnet\_ids | The IDs of the private subnets for the EKS cluster | `set(string)` | n/a | yes |
 | verbose | Enable verbose output | `bool` | `false` | no |
 | versions | The versions of various EKS components | `map(string)` | `{}` | no |
 | vpc\_id | The ID of the VPC for the EKS cluster | `string` | n/a | yes |
