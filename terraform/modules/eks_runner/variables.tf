@@ -10,7 +10,7 @@ variable "github_connection_arn" {
 
 variable "private_subnet_ids" {
   description = "The IDs of the private subnets in the VPC"
-  type        = list(string)
+  type        = set(string)
 
   validation {
     condition     = length(var.private_subnet_ids) > 0 && length(var.private_subnet_ids) <= 16
@@ -20,11 +20,6 @@ variable "private_subnet_ids" {
   validation {
     condition     = alltrue([for id in var.private_subnet_ids : can(regex("^subnet-([0-9a-f]{8}|[0-9a-f]{17})$", id))])
     error_message = "Each private_subnet_ids entry must be a valid subnet ID (e.g., subnet-0123456789abcdef0)."
-  }
-
-  validation {
-    condition     = length(distinct(var.private_subnet_ids)) == length(var.private_subnet_ids)
-    error_message = "private_subnet_ids must not contain duplicates."
   }
 }
 
