@@ -1,5 +1,9 @@
 name: deploy aws eks
-run-name: "deploy: aws, all, all, eks_*"
+run-name: >-
+  deploy: aws, all, all, ${{ format('eks_*{0}{1}{2}',
+    !inputs.eks_cluster && ',!eks_cluster*' || '',
+    !inputs.eks_runner && ',!eks_runner*' || '',
+    !inputs.eks_vpc && ',!eks_vpc*' || '') }}
 
 on:
   workflow_dispatch:
