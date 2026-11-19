@@ -49,7 +49,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | github\_connection\_arn | The ARN of the GitHub code connection used by the CodeBuild runner | `string` | n/a | yes |
-| private\_subnet\_ids | The IDs of the private subnets in the VPC | `list(string)` | n/a | yes |
+| private\_subnet\_ids | The IDs of the private subnets in the VPC | `set(string)` | n/a | yes |
 | verify\_github\_connection | Look up the GitHub connection and require it to be AVAILABLE. Disable only for mock-backed plans where the connection does not exist yet. | `bool` | `true` | no |
 | vpc\_id | The ID of the VPC | `string` | n/a | yes |
 
