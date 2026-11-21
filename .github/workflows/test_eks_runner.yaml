@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: pwd
+      - run: terraform --version
+      - run: terragrunt --version
+      - run: aws --version
       - run: ls -la
       - name: test
         run: |
