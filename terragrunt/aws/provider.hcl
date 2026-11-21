@@ -4,5 +4,7 @@ locals {
     repo       = "infra"
   }
 
+  eks_cluster_name = "eks-blue-us-east-2"
+
   providers = ["aws"]
 }
