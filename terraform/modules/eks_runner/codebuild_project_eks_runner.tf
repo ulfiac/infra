@@ -9,8 +9,13 @@ resource "aws_codebuild_project" "eks_runner" {
   environment {
     compute_type = "BUILD_GENERAL1_MEDIUM" # 8 GiB memory / 4 vCPUs / 128 GB disk space
     host_kernel  = "LINUX_KERNEL_6"        # kernel-6, Amazon Linux 2023
-    image        = "aws/codebuild/amazonlinux-aarch64-standard:4.0"
+    image        = "ghcr.io/ulfiac/terra-runner:1.2.1@sha256:cafa47ae39e7f86577c43a2cdf69d8a0b6bee91ec4f93b370890c420ed91ddfa"
     type         = "ARM_CONTAINER"
+
+    environment_variable {
+      name  = "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT"
+      value = "1"
+    }
   }
 
   source {
