@@ -13,6 +13,7 @@ locals {
 
   is_aws    = contains(local.merged_vars.providers, "aws")
   is_github = contains(local.merged_vars.providers, "github")
+  is_helm   = contains(local.merged_vars.providers, "helm")
 
   # in the merge into merged_vars above each aws_default_tags map will overwrite the previous map, so we need to merge the maps separately in their own merge function
   # this ensures the maps are merged instead of overwritten
@@ -46,6 +47,29 @@ generate "provider_github" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 provider "github" {}
+EOF
+}
+
+generate "provider_helm" {
+  path      = "provider_helm.tf"
+  disable   = !local.is_helm # ! is required due to negative assertion (disable)
+  if_exists = "overwrite_terragrunt"
+  contents  = <<EOF
+data "aws_eks_cluster" "cluster" {
+  name = "${local.is_helm ? local.merged_vars.eks_cluster_name : ""}"
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = "${local.is_helm ? local.merged_vars.eks_cluster_name : ""}"
+}
+
+provider "helm" {
+  kubernetes = {
+    host                   = data.aws_eks_cluster.cluster.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+    token                  = data.aws_eks_cluster_auth.cluster.token
+  }
+}
 EOF
 }
 

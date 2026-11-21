@@ -1,0 +1,177 @@
+name: reusable tg action helm
+run-name: "${{ inputs.terragrunt_action }}: ${{ inputs.working_dir }}"
+
+on:
+  workflow_call:
+    inputs:
+      aws_region:
+        required: true
+        type: string
+      dump_github_context:
+        default: false
+        required: false
+        type: boolean
+      github_environment:
+        required: true
+        type: string
+      terragrunt_action:
+        required: true
+        type: string
+      terragrunt_filter:
+        default: "./**"
+        required: false
+        type: string
+      terragrunt_parallelism:
+        default: true
+        required: false
+        type: boolean
+      terragrunt_strict_mode:
+        default: true
+        required: false
+        type: boolean
+      working_dir:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      aws_region:
+        default: us-east-2
+        required: true
+        type: string
+      dump_github_context:
+        default: false
+        required: false
+        type: boolean
+      github_environment:
+        default: aws_mgmt
+        options:
+          - aws_mgmt
+        required: true
+        type: choice
+      terragrunt_action:
+        default: plan
+        options:
+          - plan
+          - plan destroy
+          - apply
+          - destroy
+        required: true
+        type: choice
+      terragrunt_filter:
+        default: "./**"
+        required: false
+        type: string
+      terragrunt_parallelism:
+        default: true
+        required: false
+        type: boolean
+      terragrunt_strict_mode:
+        default: true
+        required: false
+        type: boolean
+      working_dir:
+        required: true
+        type: string
+
+env:
+  TF_LOG: OFF
+  TF_LOG_CORE: OFF
+  TF_LOG_PROVIDER: OFF
+  TF_LOG_PATH: ./terraform.log
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  reusable-terragrunt-action-helm:
+    name: "${{ inputs.terragrunt_action }}  ${{ inputs.working_dir }}"
+    runs-on: codebuild-eks-runner-infra-us-east-2-${{ github.run_id }}-${{ github.run_attempt }}
+    concurrency:
+      group: aws-eks
+      cancel-in-progress: false
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terragrunt/${{ inputs.working_dir }}
+    environment: ${{ inputs.github_environment }}
+    env:
+      TG_ALL: "true"
+      TG_FILTER: ${{ inputs.terragrunt_filter }}
+      TG_NON_INTERACTIVE: "true"
+      TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
+      TG_STRICT_MODE: ${{ inputs.terragrunt_strict_mode }}
+      TG_SUMMARY_PER_UNIT: "true"
+      TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: pwd
+
+      - run: terraform --version
+      - run: terragrunt --version
+
+      - name: dump input context (script)
+        env:
+          CONTEXT_INPUTS: ${{ toJson(inputs) }}
+        run: |
+          "$GITHUB_WORKSPACE/scripts/dump_input_context.sh"
+
+      - name: dump all contexts (script)
+        if: ${{ inputs.dump_github_context }}
+        env:
+          CONTEXT_ENV: ${{ toJson(env) }}
+          CONTEXT_GITHUB: ${{ toJson(github) }}
+          CONTEXT_INPUTS: ${{ toJson(inputs) }}
+          CONTEXT_JOB: ${{ toJson(job) }}
+          CONTEXT_MATRIX: ${{ toJson(matrix) }}
+          CONTEXT_NEEDS: ${{ toJson(needs) }}
+          CONTEXT_RUNNER: ${{ toJson(runner) }}
+          CONTEXT_STEPS: ${{ toJson(steps) }}
+          CONTEXT_STRATEGY: ${{ toJson(strategy) }}
+          CONTEXT_VARS: ${{ toJson(vars) }}
+        run: |
+          "$GITHUB_WORKSPACE/scripts/dump_all_contexts.sh"
+
+      - name: terragrunt find
+        run: |
+          terragrunt find
+
+      - name: terragrunt list
+        run: |
+          terragrunt list --tree .
+
+      - name: terragrunt validate
+        run: |
+          terragrunt validate
+
+      - name: terragrunt plan
+        if: ${{ inputs.terragrunt_action == 'plan' }}
+        run: |
+          terragrunt run -- plan -out=tfplan.binary
+
+      - name: terragrunt plan destroy
+        if: ${{ inputs.terragrunt_action == 'plan destroy' }}
+        run: |
+          terragrunt run -- plan -destroy -out=tfplan.binary
+
+      - name: show plan summary
+        if: ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
+        run: |
+          "$GITHUB_WORKSPACE/scripts/show_tg_plan_summary.sh" "${{ inputs.terragrunt_action }}"
+
+      - name: terragrunt apply
+        if: ${{ inputs.terragrunt_action == 'apply' }}
+        run: |
+          set -o pipefail
+          terragrunt run -- apply -auto-approve 2>&1 | tee tfapply.out
+
+      - name: terragrunt destroy
+        if: ${{ inputs.terragrunt_action == 'destroy' }}
+        run: |
+          set -o pipefail
+          terragrunt run -- destroy -auto-approve 2>&1 | tee tfdestroy.out
+
+      - name: show apply summary
+        if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
+        run: |
+          "$GITHUB_WORKSPACE/scripts/show_tg_apply_summary.sh" "${{ inputs.terragrunt_action }}"
