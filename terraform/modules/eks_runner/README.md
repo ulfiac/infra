@@ -49,6 +49,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | github\_connection\_arn | The ARN of the GitHub code connection used by the CodeBuild runner | `string` | n/a | yes |
+| image | The Docker image used by the CodeBuild runner | `string` | `"ghcr.io/ulfiac/terra-runner:1.2.1@sha256:cafa47ae39e7f86577c43a2cdf69d8a0b6bee91ec4f93b370890c420ed91ddfa"` | no |
 | private\_subnet\_ids | The IDs of the private subnets in the VPC | `set(string)` | n/a | yes |
 | verify\_github\_connection | Look up the GitHub connection and require it to be AVAILABLE. Disable only for mock-backed plans where the connection does not exist yet. | `bool` | `true` | no |
 | vpc\_id | The ID of the VPC | `string` | n/a | yes |
