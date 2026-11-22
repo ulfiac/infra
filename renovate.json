@@ -1,5 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Pinned ghcr.io/ulfiac images in Terraform (e.g. the eks_runner module's image variable default), which the terraform manager doesn't detect",
+      "datasourceTemplate": "docker",
+      "managerFilePatterns": [
+        "/^terraform/.+\\.tf$/"
+      ],
+      "matchStrings": [
+        "\"(?<depName>ghcr\\.io/ulfiac/[^:\"\\s]+):(?<currentValue>[^@\"\\s]+)@(?<currentDigest>sha256:[a-f0-9]{64})\""
+      ]
+    }
+  ],
   "extends": [
     "config:recommended",
     ":disableDependencyDashboard",
@@ -45,6 +58,7 @@
       "groupName": "container(s) in containers repo (2 of 3)",
       "groupSingleUpdates": true,
       "matchPackageNames": [
+        "ghcr.io/ulfiac/terra-runner",
         "ghcr.io/ulfiac/terragrunt-runner"
       ]
     }
