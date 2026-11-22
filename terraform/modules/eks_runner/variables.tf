@@ -8,6 +8,12 @@ variable "github_connection_arn" {
   }
 }
 
+variable "image" {
+  default     = "ghcr.io/ulfiac/terra-runner:1.2.1@sha256:cafa47ae39e7f86577c43a2cdf69d8a0b6bee91ec4f93b370890c420ed91ddfa"
+  description = "The Docker image used by the CodeBuild runner"
+  type        = string
+}
+
 variable "private_subnet_ids" {
   description = "The IDs of the private subnets in the VPC"
   type        = set(string)
