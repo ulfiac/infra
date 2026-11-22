@@ -1,7 +1,7 @@
 locals {
   aws_account_id               = data.aws_caller_identity.current.account_id
   aws_region                   = data.aws_region.current.region
-  budget_amount                = "5" # in USD
+  budget_amount                = "10" # in USD
   budget_name                  = "monthly-budget"
   budget_thresholds_actual     = [20, 40, 60, 80, 100]
   budget_thresholds_forecasted = [100, 150, 200]
