@@ -62,6 +62,11 @@ data "aws_iam_policy_document" "eks_runner_service_role" {
       variable = "ec2:AuthorizedService"
       values   = ["codebuild.amazonaws.com"]
     }
+    condition {
+      test     = "ArnEquals"
+      variable = "ec2:Subnet"
+      values   = [for id in var.private_subnet_ids : "arn:aws:ec2:${local.aws_region}:${local.aws_account_id}:subnet/${id}"]
+    }
   }
 }
 
