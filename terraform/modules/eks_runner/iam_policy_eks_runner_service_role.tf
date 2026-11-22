@@ -3,11 +3,14 @@ data "aws_iam_policy_document" "eks_runner_service_role" {
     sid    = "CloudWatchLogs"
     effect = "Allow"
     actions = [
-      "logs:CreateLogGroup",
+      "logs:CreateLogGroup", # could be removed
       "logs:CreateLogStream",
       "logs:PutLogEvents",
     ]
-    resources = ["arn:aws:logs:*:${local.aws_account_id}:log-group:/aws/codebuild/*"]
+    resources = [
+      aws_cloudwatch_log_group.eks_runner.arn,
+      "${aws_cloudwatch_log_group.eks_runner.arn}:*",
+    ]
   }
 
   statement {
