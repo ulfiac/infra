@@ -9,7 +9,7 @@ variable "github_connection_arn" {
 }
 
 variable "image" {
-  default     = "ghcr.io/ulfiac/terra-runner:1.2.1@sha256:cafa47ae39e7f86577c43a2cdf69d8a0b6bee91ec4f93b370890c420ed91ddfa"
+  default     = "ghcr.io/ulfiac/terra-runner:1.2.2@sha256:da3bec9a841f7153801933024133c1df8504ddbace240a57fe1577bbe8ee5ea0"
   description = "The Docker image used by the CodeBuild runner"
   type        = string
 }
