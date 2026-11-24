@@ -3,6 +3,37 @@
 Terraform module to create applications in kubernetes using helm.
 
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | 1.17.2 |
+| aws | 6.73.0 |
+| helm | 3.3.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| helm | 3.3.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [helm_release.metrics_server](https://registry.terraform.io/providers/hashicorp/helm/3.3.0/docs/resources/release) | resource |
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
 <!-- END_TF_DOCS -->
 
 ## Updating This README
