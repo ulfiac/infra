@@ -60,7 +60,7 @@ data "aws_eks_cluster" "cluster" {
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = "${local.is_helm ? local.merged_vars.eks_cluster_name : ""}"
+  name = data.aws_eks_cluster.cluster.name
 }
 
 provider "helm" {
