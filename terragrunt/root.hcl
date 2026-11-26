@@ -56,7 +56,7 @@ generate "provider_helm" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 data "aws_eks_cluster" "cluster" {
-  name = "${local.is_helm ? local.merged_vars.eks_cluster_name : ""}"
+  name = var.eks_cluster_name
 }
 
 ephemeral "aws_eks_cluster_auth" "cluster" {
