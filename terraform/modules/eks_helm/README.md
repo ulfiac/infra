@@ -29,7 +29,9 @@ No modules.
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| eks\_cluster\_name | The name of the EKS cluster | `string` | n/a | yes |
 
 ## Outputs
 
