@@ -11,6 +11,29 @@
       "matchStrings": [
         "\"(?<depName>ghcr\\.io/ulfiac/[^:\"\\s]+):(?<currentValue>[^@\"\\s]+)@(?<currentDigest>sha256:[a-f0-9]{64})\""
       ]
+    },
+    {
+      "customType": "regex",
+      "description": "GitHub-hosted runner label assigned to a shell variable in workflow run scripts",
+      "datasourceTemplate": "github-runners",
+      "versioningTemplate": "docker",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/[^/]+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "github_runner='(?<depName>ubuntu|macos|windows)-(?<currentValue>[^'\\s]+)'"
+      ]
+    },
+    {
+      "customType": "regex",
+      "description": "Pinned ghcr.io/ulfiac images assigned to shell variables in workflow run scripts",
+      "datasourceTemplate": "docker",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/[^/]+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "'(?<depName>ghcr\\.io/ulfiac/[^:'\\s]+):(?<currentValue>[^@'\\s]+)@(?<currentDigest>sha256:[a-f0-9]{64})'"
+      ]
     }
   ],
   "extends": [
