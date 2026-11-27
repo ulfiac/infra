@@ -86,7 +86,7 @@ permissions:
 jobs:
   reusable-terragrunt-action-helm:
     name: "${{ inputs.terragrunt_action }}  ${{ inputs.working_dir }}"
-    runs-on: codebuild-eks-runner-infra-us-east-2-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: codebuild-eks-runner-us-east-2-${{ github.run_id }}-${{ github.run_attempt }}
     concurrency:
       group: aws-eks
       cancel-in-progress: false
