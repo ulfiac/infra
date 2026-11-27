@@ -46,6 +46,7 @@ on:
         default: aws_mgmt
         options:
           - aws_mgmt
+          - github
         required: true
         type: choice
       terragrunt_action:
@@ -84,11 +85,43 @@ permissions:
   id-token: write
 
 jobs:
+  setup-runner:
+    runs-on: ubuntu-26.04
+    outputs:
+      image: ${{ steps.setup-runner.outputs.image }}
+      provider: ${{ steps.setup-runner.outputs.provider }}
+      runner: ${{ steps.setup-runner.outputs.runner }}
+    steps:
+      - name: setup runner
+        id: setup-runner
+        env:
+          AWS_REGION: ${{ inputs.aws_region }}
+          WORKING_DIR: ${{ inputs.working_dir }}
+        run: |
+          codebuild_runner="codebuild-eks-runner-${AWS_REGION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          github_image='ghcr.io/ulfiac/terragrunt-runner:1.2.2@sha256:b75c497bb72dab6cca37198ecf2367dfde50a912f52750bb8beeeefada56c58b'
+          github_runner='ubuntu-26.04'
+
+          working_dir="${WORKING_DIR#./}"
+          provider="${working_dir%%/*}"
+          echo "provider=$provider" >> "$GITHUB_OUTPUT"
+
+          if [[ "$provider" == helm ]]; then
+            echo "runner=$codebuild_runner" >> "$GITHUB_OUTPUT"
+            echo "image=" >> "$GITHUB_OUTPUT"
+          else
+            echo "runner=$github_runner" >> "$GITHUB_OUTPUT"
+            echo "image=$github_image" >> "$GITHUB_OUTPUT"
+          fi
+
   reusable-terragrunt-action:
     name: "${{ inputs.terragrunt_action }}  ${{ inputs.working_dir }}"
-    runs-on: ubuntu-26.04
-    container:
-      image: ghcr.io/ulfiac/terragrunt-runner:1.2.2@sha256:b75c497bb72dab6cca37198ecf2367dfde50a912f52750bb8beeeefada56c58b
+    needs: setup-runner
+    runs-on: ${{ needs.setup-runner.outputs.runner }}
+    container: ${{ needs.setup-runner.outputs.image }}
+    concurrency:
+       group: tg-${{ inputs.working_dir }}
+       cancel-in-progress: false
     defaults:
       run:
         shell: bash
@@ -111,10 +144,11 @@ jobs:
       - run: terragrunt --version
 
       - name: set github token
-        if: ${{ inputs.github_environment == 'github' }}
+        if: ${{ needs.setup-runner.outputs.provider == 'github' }}
         run: echo "GITHUB_TOKEN=${{ secrets.PAT_GITHUB_INFRA }}" >> "$GITHUB_ENV"
 
       - name: configure aws credentials with oidc
+        if: ${{ needs.setup-runner.outputs.provider != 'helm' }}
         uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.OIDC_ROLE_TO_ASSUME }}

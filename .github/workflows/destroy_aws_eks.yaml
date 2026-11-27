@@ -6,10 +6,6 @@ on:
     - cron: "41 3 * * *" # every day at 0341 UTC (10:41pm EST, 11:41pm EDT)
   workflow_dispatch:
 
-concurrency:
-  group: aws-eks
-  cancel-in-progress: false
-
 permissions:
   contents: read
   id-token: write
